@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { mongodbDataSource } from './settings/mongodb-datasource';
+import { postgreSqlDataSource } from './settings/postgresql-datasource';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(mongodbDataSource)],
+  imports: [TypeOrmModule.forRoot(postgreSqlDataSource)],
 })
 export class DatabaseModule {}
