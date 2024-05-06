@@ -1,0 +1,12 @@
+version: '3.5'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "37345:5432"

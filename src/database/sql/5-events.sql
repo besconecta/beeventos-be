@@ -1,6 +1,3 @@
--- first, create enum
-CREATE TYPE event_status AS ENUM ('idle', 'started', 'finished');
-
 CREATE TABLE events (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     event_type_id UUID NOT NULL,

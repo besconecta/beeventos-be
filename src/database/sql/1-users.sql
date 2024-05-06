@@ -1,6 +1,3 @@
--- first, create uuid extension on the database
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     ds_firstname VARCHAR(100) NOT NULL,
