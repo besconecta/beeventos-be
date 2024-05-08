@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { BcryptService } from 'src/shared/bcrypt/bcrypt.service';
 
 import { CreateUserDto } from '../dtos/create-user.dto';
@@ -13,6 +13,10 @@ export class CreateUserService {
   ) {}
 
   async execute(data: CreateUserDto): Promise<UserAccountDto> {
+    if (data.password !== data.passwordConfirmation) {
+      throw new BadRequestException('As senhas não coincidem');
+    }
+
     const hashedPassword = await this.bcryptService.hashPassword(data.password);
 
     return await this.userRepository.create({
