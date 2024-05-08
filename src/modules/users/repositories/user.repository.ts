@@ -14,7 +14,7 @@ export class UserRepository {
     private readonly repository: Repository<UserEntity>,
   ) {}
 
-  async create(data: CreateUserDto): Promise<UserAccountDto | null> {
+  async create(data: CreateUserDto): Promise<UserAccountDto> {
     const userAccount = await this.repository.save(data);
     return plainToClass(UserAccountDto, userAccount, {
       excludeExtraneousValues: true,
