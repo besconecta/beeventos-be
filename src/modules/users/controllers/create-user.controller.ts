@@ -1,13 +1,25 @@
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { CreateUserService } from '../services/create-user.service';
 
+@ApiTags('Organizadores de eventos')
 @Controller('account/user')
 export class CreateUserController {
   constructor(private readonly createUserService: CreateUserService) {}
 
+  @ApiCreatedResponse({
+    description: 'Conta de usuário criada com sucesso',
+  })
+  @ApiBadRequestResponse({ description: 'As senhas não coincidem' })
+  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
   @Post()
   async handle(@Body() data: CreateUserDto, @Res() res: Response) {
     const result = await this.createUserService.execute(data);
