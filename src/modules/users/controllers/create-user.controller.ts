@@ -1,6 +1,7 @@
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiTags,
@@ -19,7 +20,13 @@ export class CreateUserController {
     description: 'Conta de usuário criada com sucesso',
   })
   @ApiBadRequestResponse({ description: 'As senhas não coincidem' })
-  @ApiInternalServerErrorResponse({ description: 'Internal server error' })
+  @ApiConflictResponse({
+    description:
+      'Registro duplicado: Key (field)=(description_field) already exists.',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Houve um erro interno ao processar solicitação',
+  })
   @Post()
   async handle(@Body() data: CreateUserDto, @Res() res: Response) {
     const result = await this.createUserService.execute(data);
