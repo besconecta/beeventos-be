@@ -5,5 +5,11 @@ export class UserAccountDto {
   id: string;
 
   @Expose()
+  firstname: string;
+
+  @Expose()
+  lastname: string;
+
+  @Expose()
   email: string;
 }
