@@ -9,6 +9,7 @@ import {
 import { Response } from 'express';
 
 import { CreateUserDto } from '../dtos/create-user.dto';
+import { UserAccountDto } from '../dtos/user-account.dto';
 import { CreateUserService } from '../services/create-user.service';
 
 @ApiTags('Organizadores de eventos')
@@ -18,6 +19,7 @@ export class CreateUserController {
 
   @ApiCreatedResponse({
     description: 'Conta de usuário criada com sucesso',
+    type: UserAccountDto,
   })
   @ApiBadRequestResponse({ description: 'As senhas não coincidem' })
   @ApiConflictResponse({
