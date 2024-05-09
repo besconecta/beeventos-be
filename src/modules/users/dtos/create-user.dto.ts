@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsStrongPassword } from 'class-validator';
+
+import { AccountRole } from '../../common/enums';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -45,4 +47,9 @@ export class CreateUserDto {
   )
   @IsNotEmpty({ message: 'Confirmação de senha é obrigatória' })
   passwordConfirmation: string;
+
+  @ApiProperty({ name: 'role', example: 'admin, user, atendee' })
+  @IsEnum(AccountRole, { message: 'Perfil inválido' })
+  @IsNotEmpty({ message: 'Perfil do usuário é obrigatório' })
+  role: AccountRole;
 }

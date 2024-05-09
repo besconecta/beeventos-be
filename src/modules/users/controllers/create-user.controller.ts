@@ -4,11 +4,13 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { CreateUserDto } from '../dtos/create-user.dto';
+import { UserAccountDto } from '../dtos/user-account.dto';
 import { CreateUserService } from '../services/create-user.service';
 
 @ApiTags('Organizadores de eventos')
@@ -16,8 +18,13 @@ import { CreateUserService } from '../services/create-user.service';
 export class CreateUserController {
   constructor(private readonly createUserService: CreateUserService) {}
 
+  @Post()
+  @ApiOperation({
+    description: 'Cria conta de usuário organizador de eventos',
+  })
   @ApiCreatedResponse({
     description: 'Conta de usuário criada com sucesso',
+    type: UserAccountDto,
   })
   @ApiBadRequestResponse({ description: 'As senhas não coincidem' })
   @ApiConflictResponse({
@@ -27,7 +34,6 @@ export class CreateUserController {
   @ApiInternalServerErrorResponse({
     description: 'Houve um erro interno ao processar solicitação',
   })
-  @Post()
   async handle(@Body() data: CreateUserDto, @Res() res: Response) {
     const result = await this.createUserService.execute(data);
     return res.status(HttpStatus.CREATED).json({

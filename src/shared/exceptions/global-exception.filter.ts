@@ -50,6 +50,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message = `Registro duplicado: ${exception.driverError?.detail}`;
     }
 
+    console.log(exception);
+
     this.logger.error(
       `${request.method} ${request.originalUrl} ${httpStatus} error: ${message}`,
     );

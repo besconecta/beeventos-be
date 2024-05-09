@@ -1,16 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
+
+import { EntityBase } from '../../../modules/common/entities';
+import { AccountRole } from '../../common/enums';
 
 @Entity({ name: 'users' })
-export class UserEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class UserEntity extends EntityBase {
   @Column({ name: 'ds_firstname', nullable: false, length: 100 })
   firstname: string;
 
@@ -23,14 +17,6 @@ export class UserEntity {
   @Column({ name: 'hs_password', nullable: false, length: 255 })
   password: string;
 
-  @CreateDateColumn({
-    name: 'dh_created_at',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    name: 'dh_updated_at',
-  })
-  updatedAt: Date;
+  @Column({ name: 'ds_role', nullable: false })
+  role: AccountRole;
 }
