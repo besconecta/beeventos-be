@@ -20,4 +20,7 @@ export class UserRepository {
       excludeExtraneousValues: true,
     });
   }
+  async findByEmail(userEmail: string): Promise<UserEntity> {
+    return await this.repository.findOne({ where: { email: userEmail } });
+  }
 }
