@@ -3,7 +3,7 @@ import { IsEmail, IsEnum, IsNotEmpty, IsStrongPassword } from 'class-validator';
 
 import { AccountRole } from '../../common/enums';
 
-export class CreateUserDto {
+export class CreateUserInput {
   @ApiProperty({
     name: 'fistname',
     example: 'Anakin',

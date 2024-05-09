@@ -2,12 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BcryptService } from 'src/shared/bcrypt/bcrypt.service';
 
-import { AuthUserController } from './controllers';
-import { CreateUserController } from './controllers/create-user.controller';
-import { UserEntity } from './entities/user.entity';
-import { UserRepository } from './repositories/user.repository';
-import { AuthUserService } from './services';
-import { CreateUserService } from './services/create-user.service';
+import { AuthUserController, CreateUserController } from './controllers';
+import { UserEntity } from './entities';
+import { UserRepository } from './repositories';
+import { AuthUserService, CreateUserService } from './services';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],

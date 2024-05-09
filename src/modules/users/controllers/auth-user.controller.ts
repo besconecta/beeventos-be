@@ -9,7 +9,8 @@ import {
 } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import { AuthUserDto, AuthUserResponseDto } from '../dtos';
+import { AuthUserInput } from '../input';
+import { AuthUserOutput } from '../output';
 import { AuthUserService } from '../services';
 
 @ApiTags('Organizadores de eventos')
@@ -21,7 +22,7 @@ export class AuthUserController {
   @ApiOperation({ description: 'Login de usuário organizador de eventos' })
   @ApiOkResponse({
     description: 'Login efetuado com sucesso',
-    type: AuthUserResponseDto,
+    type: AuthUserOutput,
   })
   @ApiNotFoundResponse({ description: 'E-mail não encontrado' })
   @ApiUnauthorizedResponse({ description: 'Senha incorreta' })
@@ -29,8 +30,8 @@ export class AuthUserController {
     description: 'Houve um erro interno ao processar solicitação',
   })
   async handle(
-    @Body() data: AuthUserDto,
-    @Res() res: Response<AuthUserResponseDto>,
+    @Body() data: AuthUserInput,
+    @Res() res: Response<AuthUserOutput>,
   ) {
     const result = await this.authUserService.execute(data);
     return res.status(HttpStatus.OK).json({

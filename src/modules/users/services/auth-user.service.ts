@@ -6,7 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 
 import { BcryptService } from '../../../shared/bcrypt/bcrypt.service';
-import { AuthUserDto } from '../dtos';
+import { AuthUserInput } from '../input';
 import { UserRepository } from '../repositories';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class AuthUserService {
     private readonly bcryptService: BcryptService,
   ) {}
 
-  async execute(data: AuthUserDto): Promise<string> {
+  async execute(data: AuthUserInput): Promise<string> {
     const user = await this.userRepository.findByEmail(data.email);
 
     if (!user) {

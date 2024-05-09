@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { Repository } from 'typeorm';
 
-import { CreateUserDto } from '../dtos/create-user.dto';
-import { UserAccountDto } from '../dtos/user-account.dto';
-import { UserEntity } from '../entities/user.entity';
+import { UserEntity } from '../entities';
+import { CreateUserInput } from '../input';
+import { UserAccountOutput } from '../output';
 
 @Injectable()
 export class UserRepository {
@@ -14,9 +14,9 @@ export class UserRepository {
     private readonly repository: Repository<UserEntity>,
   ) {}
 
-  async create(data: CreateUserDto): Promise<UserAccountDto> {
+  async create(data: CreateUserInput): Promise<UserAccountOutput> {
     const userAccount = await this.repository.save(data);
-    return plainToClass(UserAccountDto, userAccount, {
+    return plainToClass(UserAccountOutput, userAccount, {
       excludeExtraneousValues: true,
     });
   }
