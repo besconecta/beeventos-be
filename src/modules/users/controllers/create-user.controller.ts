@@ -15,7 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { AdminGuard } from 'src/modules/common/auth/guard';
+import { AdminGuard } from 'src/shared/auth/guard';
 
 import { CreateUserInput } from '../input';
 import { UserAccountOutput } from '../output';

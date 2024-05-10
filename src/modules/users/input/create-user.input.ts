@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsEnum, IsNotEmpty, IsStrongPassword } from 'class-validator';
 
-import { AccountRole } from '../../common/enums';
+import { AccountRole } from '../../../shared/enums';
 
 export class CreateUserInput {
   @ApiProperty({

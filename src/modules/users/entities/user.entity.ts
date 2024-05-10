@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
-import { EntityBase } from '../../../modules/common/entities';
-import { AccountRole } from '../../common/enums';
+import { EntityBase } from '../../../shared/entities';
+import { AccountRole } from '../../../shared/enums';
 
 @Entity({ name: 'users' })
 export class UserEntity extends EntityBase {
