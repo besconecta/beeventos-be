@@ -1,4 +1,11 @@
-import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -8,6 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import { AdminGuard } from 'src/modules/common/auth/guard';
 
 import { CreateUserInput } from '../input';
 import { UserAccountOutput } from '../output';
@@ -18,6 +26,7 @@ import { CreateUserService } from '../services';
 export class CreateUserController {
   constructor(private readonly createUserService: CreateUserService) {}
 
+  @UseGuards(AdminGuard)
   @Post()
   @ApiOperation({
     description: 'Cria conta de usuário organizador de eventos',
