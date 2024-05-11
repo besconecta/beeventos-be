@@ -15,8 +15,8 @@ export class AtendeeRepository {
   ) {}
 
   async create(input: CreateAtendeeInput): Promise<AtendeeAccountOutput> {
-    const userAccount = await this.repository.save(input);
-    return plainToClass(AtendeeAccountOutput, userAccount, {
+    const atendeeAccount = await this.repository.save(input);
+    return plainToClass(AtendeeAccountOutput, atendeeAccount, {
       excludeExtraneousValues: true,
     });
   }

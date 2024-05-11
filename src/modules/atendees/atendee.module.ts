@@ -3,19 +3,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from 'src/shared/auth/services/auth.service';
 import { BcryptService } from 'src/shared/bcrypt/bcrypt.service';
 
-import { CreateAtendeeController } from './controllers';
+import { AuthAtendeeController, CreateAtendeeController } from './controllers';
 import { AtendeeEntity } from './entities';
 import { AtendeeRepository } from './repositories';
-import { CreateAtendeeService } from './services';
+import { AuthAtendeeService, CreateAtendeeService } from './services';
 
 @Module({
   imports: [TypeOrmModule.forFeature([AtendeeEntity])],
   providers: [
     AtendeeRepository,
     AuthService,
+    AuthAtendeeService,
     CreateAtendeeService,
     BcryptService,
   ],
-  controllers: [CreateAtendeeController],
+  controllers: [AuthAtendeeController, CreateAtendeeController],
 })
 export class AtendeeModule {}
