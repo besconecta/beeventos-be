@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { EventTypeInput } from '../input';
+import { CreateEventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';
 import { EventTypeRepository } from '../repositories';
 
@@ -8,7 +8,7 @@ import { EventTypeRepository } from '../repositories';
 export class CreateEventTypeService {
   constructor(private readonly eventTypeRepository: EventTypeRepository) {}
 
-  async execute(input: EventTypeInput): Promise<EventTypeOutput> {
+  async execute(input: CreateEventTypeInput): Promise<EventTypeOutput> {
     return await this.eventTypeRepository.create(input);
   }
 }

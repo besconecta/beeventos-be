@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { plainToClass } from 'class-transformer';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 
 import { EventTypeEntity } from '../entities';
-import { EventTypeInput } from '../input';
+import { CreateEventTypeInput, UpdateEventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';
 
 @Injectable()
@@ -14,20 +13,19 @@ export class EventTypeRepository {
     private readonly repository: Repository<EventTypeEntity>,
   ) {}
 
-  async create(input: EventTypeInput): Promise<EventTypeOutput> {
-    const eventType = await this.repository.save(input);
-    return plainToClass(EventTypeOutput, eventType, {
-      excludeExtraneousValues: true,
-    });
+  async create(input: CreateEventTypeInput): Promise<EventTypeOutput> {
+    return await this.repository.save(input);
   }
 
   async readAll(): Promise<EventTypeOutput[]> {
-    const eventsTypes = await this.repository.find();
+    return await this.repository.find();
+  }
 
-    return eventsTypes.map((eventType) => {
-      return plainToClass(EventTypeOutput, eventType, {
-        excludeExtraneousValues: true,
-      });
-    });
+  async readById(id: string): Promise<EventTypeOutput> {
+    return await this.repository.findOne({ where: { id } });
+  }
+
+  async update(id: string, input: UpdateEventTypeInput): Promise<UpdateResult> {
+    return await this.repository.update(id, input);
   }
 }

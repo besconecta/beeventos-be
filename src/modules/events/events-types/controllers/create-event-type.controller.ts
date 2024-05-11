@@ -10,7 +10,7 @@ import { Response } from 'express';
 
 import { UserGuard } from '../../../../shared/auth/guard';
 import { ApiCreateEventTypeResponses } from '../decorators';
-import { EventTypeInput } from '../input';
+import { CreateEventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';
 import { CreateEventTypeService } from '../services';
 
@@ -24,7 +24,7 @@ export class CreateEventTypeController {
   @UseGuards(UserGuard)
   @ApiCreateEventTypeResponses()
   async handle(
-    @Body() input: EventTypeInput,
+    @Body() input: CreateEventTypeInput,
     @Res() res: Response,
   ): Promise<Response<EventTypeOutput>> {
     const data = await this.createEventTypeService.execute(input);

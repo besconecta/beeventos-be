@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsNotEmpty, MaxLength } from 'class-validator';
 
-export class EventTypeInput {
+export class CreateEventTypeInput {
   @ApiProperty({
     name: 'description',
     description: 'Tipo de evento',
