@@ -6,7 +6,6 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { AdminGuard } from '../../../shared/auth/guard';
@@ -14,7 +13,6 @@ import { ApiCreateUserResponses } from '../decorators';
 import { CreateUserInput } from '../input';
 import { CreateUserService } from '../services';
 
-@ApiTags('Organizadores de eventos')
 @Controller('user/account')
 export class CreateUserController {
   constructor(private readonly createUserService: CreateUserService) {}

@@ -4,6 +4,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
@@ -11,6 +12,7 @@ import { AuthUserOutput } from '../output';
 
 export function ApiAuthUserResponses() {
   return applyDecorators(
+    ApiTags('Organizadores de eventos'),
     ApiOperation({ description: 'Login de usuário organizador de eventos' }),
     ApiOkResponse({
       description: 'Login efetuado com sucesso',
