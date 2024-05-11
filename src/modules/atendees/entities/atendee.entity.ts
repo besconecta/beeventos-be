@@ -1,10 +1,9 @@
 import { Column, Entity } from 'typeorm';
 
 import { EntityBase } from '../../../shared/entities';
-import { AccountRole } from '../../../shared/enums';
 
-@Entity({ name: 'users' })
-export class UserEntity extends EntityBase {
+@Entity({ name: 'atendees' })
+export class AtendeeEntity extends EntityBase {
   @Column({ name: 'ds_firstname', nullable: false, length: 100 })
   firstname: string;
 
@@ -16,7 +15,4 @@ export class UserEntity extends EntityBase {
 
   @Column({ name: 'hs_password', nullable: false, length: 255 })
   password: string;
-
-  @Column({ name: 'ds_role', nullable: false })
-  role: AccountRole;
 }

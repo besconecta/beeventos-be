@@ -6,34 +6,34 @@ import {
 import { JwtService } from '@nestjs/jwt';
 
 import { BcryptService } from '../../../shared/bcrypt/bcrypt.service';
-import { AuthUserInput } from '../input';
-import { UserRepository } from '../repositories';
+import { AuthAtendeeInput } from '../input';
+import { AtendeeRepository } from '../repositories';
 
 @Injectable()
-export class AuthUserService {
+export class AuthAtendeeService {
   constructor(
-    private readonly userRepository: UserRepository,
+    private readonly atendeeRepository: AtendeeRepository,
     private readonly jwtService: JwtService,
     private readonly bcryptService: BcryptService,
   ) {}
 
-  async execute(input: AuthUserInput): Promise<string> {
-    const user = await this.userRepository.findByEmail(input.email);
+  async execute(input: AuthAtendeeInput): Promise<string> {
+    const atendee = await this.atendeeRepository.findByEmail(input.email);
 
-    if (!user) {
+    if (!atendee) {
       throw new NotFoundException(`E-mail não encontrado`);
     }
 
     const passwordMatch = await this.bcryptService.comparePassword(
       input.password,
-      user.password,
+      atendee.password,
     );
 
     if (!passwordMatch) {
       throw new UnauthorizedException('Senha incorreta');
     }
 
-    const payload = { sub: user.id, role: user.role };
+    const payload = { sub: atendee.id };
     return await this.jwtService.signAsync(payload);
   }
 }

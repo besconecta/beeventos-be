@@ -1,12 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsNotEmpty, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator';
 
-import { AccountRole } from '../../../shared/enums';
-
-export class CreateUserInput {
+export class CreateAtendeeInput {
   @ApiProperty({
     name: 'fistname',
-    example: 'Anakin',
+    example: 'Luke',
   })
   @IsNotEmpty({ message: 'Nome é obrigatório' })
   firstname: string;
@@ -20,7 +18,7 @@ export class CreateUserInput {
 
   @ApiProperty({
     name: 'email',
-    example: 'anakin@tatooine.com',
+    example: 'luke@tatooine.com',
   })
   @IsEmail({}, { message: 'Precisa ser um e-mail válido' })
   @IsNotEmpty({ message: 'E-mail é obrigatório' })
@@ -28,7 +26,7 @@ export class CreateUserInput {
 
   @ApiProperty({
     name: 'password',
-    example: 'AnakinSky2024',
+    example: '@LukeSky2024',
   })
   @IsStrongPassword(
     {},
@@ -39,7 +37,7 @@ export class CreateUserInput {
 
   @ApiProperty({
     name: 'passwordConfirmation',
-    example: 'AnakinSky2024',
+    example: '@LukeSky2024',
   })
   @IsStrongPassword(
     {},
@@ -47,9 +45,4 @@ export class CreateUserInput {
   )
   @IsNotEmpty({ message: 'Confirmação de senha é obrigatória' })
   passwordConfirmation: string;
-
-  @ApiProperty({ name: 'role', example: 'admin, user, atendee' })
-  @IsEnum(AccountRole, { message: 'Perfil inválido' })
-  @IsNotEmpty({ message: 'Perfil do usuário é obrigatório' })
-  role: AccountRole;
 }
