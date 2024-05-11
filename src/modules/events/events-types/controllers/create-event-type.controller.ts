@@ -1,6 +1,14 @@
-import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 
+import { UserGuard } from '../../../../shared/auth/guard';
 import { ApiCreateEventTypeResponses } from '../decorators';
 import { EventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';
@@ -13,6 +21,7 @@ export class CreateEventTypeController {
   ) {}
 
   @Post()
+  @UseGuards(UserGuard)
   @ApiCreateEventTypeResponses()
   async handle(
     @Body() input: EventTypeInput,

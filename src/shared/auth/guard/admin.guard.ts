@@ -27,9 +27,7 @@ export class AdminGuard implements CanActivate {
     request.decodedData = resp;
 
     if (request.decodedData.role !== AccountRole.Admin) {
-      throw new UnauthorizedException(
-        'Apenas administradores podem realizar esta ação',
-      );
+      throw new UnauthorizedException('Usuário sem permissão');
     }
 
     return true;

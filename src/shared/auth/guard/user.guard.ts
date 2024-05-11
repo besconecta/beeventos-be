@@ -26,7 +26,7 @@ export class UserGuard implements CanActivate {
 
     request.decodedData = resp;
 
-    if (request.decodedData.role !== AccountRole.User) {
+    if (request.decodedData.role === AccountRole.Atendee) {
       throw new UnauthorizedException('Usuário sem permissão');
     }
 

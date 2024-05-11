@@ -5,6 +5,7 @@ import {
   ApiInternalServerErrorResponse,
   ApiOperation,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
 import { EventTypeOutput } from '../output';
@@ -21,6 +22,7 @@ export function ApiCreateEventTypeResponses() {
       description:
         'Registro duplicado: Key (field)=(description_field) already exists.',
     }),
+    ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
     ApiInternalServerErrorResponse({
       description: 'Houve um erro interno ao processar solicitação',
     }),
