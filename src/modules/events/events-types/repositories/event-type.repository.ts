@@ -20,4 +20,14 @@ export class EventTypeRepository {
       excludeExtraneousValues: true,
     });
   }
+
+  async readAll(): Promise<EventTypeOutput[]> {
+    const eventsTypes = await this.repository.find();
+
+    return eventsTypes.map((eventType) => {
+      return plainToClass(EventTypeOutput, eventType, {
+        excludeExtraneousValues: true,
+      });
+    });
+  }
 }
