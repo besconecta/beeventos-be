@@ -1,7 +1,7 @@
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
-import { ApiCreateEventTypeResponses } from '../events-types/decorators';
+import { ApiCreateEventTypeResponses } from '../decorators';
 import { EventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';
 import { CreateEventTypeService } from '../services';

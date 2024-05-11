@@ -7,7 +7,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { EventTypeOutput } from '../../output';
+import { EventTypeOutput } from '../output';
 
 export function ApiCreateEventTypeResponses() {
   return applyDecorators(

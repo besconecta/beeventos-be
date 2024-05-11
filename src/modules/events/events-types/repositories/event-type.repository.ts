@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { Repository } from 'typeorm';
 
-import { EventTypeEntity } from '../events-types/entities';
+import { EventTypeEntity } from '../entities';
 import { EventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';
 
