@@ -15,13 +15,13 @@ export class AuthUserController {
   @Post()
   @ApiAuthUserResponses()
   async handle(
-    @Body() data: AuthUserInput,
+    @Body() input: AuthUserInput,
     @Res() res: Response<AuthUserOutput>,
   ) {
-    const result = await this.authUserService.execute(data);
+    const data = await this.authUserService.execute(input);
     return res.status(HttpStatus.OK).json({
       message: 'Login efetuado com sucesso',
-      access_token: result,
+      access_token: data,
     });
   }
 }

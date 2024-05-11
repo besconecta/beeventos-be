@@ -1,18 +1,18 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { BcryptService } from 'src/shared/bcrypt/bcrypt.service';
 
-import { CreateUserInput } from '../input';
-import { UserAccountOutput } from '../output';
-import { UserRepository } from '../repositories';
+import { CreateAtendeeInput } from '../input';
+import { AtendeeAccountOutput } from '../output';
+import { AtendeeRepository } from '../repositories';
 
 @Injectable()
-export class CreateUserService {
+export class CreateAtendeeService {
   constructor(
-    private readonly userRepository: UserRepository,
+    private readonly atendeeRepository: AtendeeRepository,
     private readonly bcryptService: BcryptService,
   ) {}
 
-  async execute(input: CreateUserInput): Promise<UserAccountOutput> {
+  async execute(input: CreateAtendeeInput): Promise<AtendeeAccountOutput> {
     if (input.password !== input.passwordConfirmation) {
       throw new BadRequestException('As senhas não coincidem');
     }
@@ -21,7 +21,7 @@ export class CreateUserService {
       input.password,
     );
 
-    return await this.userRepository.create({
+    return await this.atendeeRepository.create({
       ...input,
       password: hashedPassword,
     });

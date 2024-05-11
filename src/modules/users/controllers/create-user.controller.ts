@@ -8,25 +8,25 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { AdminGuard } from 'src/shared/auth/guard';
 
+import { AdminGuard } from '../../../shared/auth/guard';
 import { ApiCreateUserResponses } from '../decorators';
 import { CreateUserInput } from '../input';
 import { CreateUserService } from '../services';
 
 @ApiTags('Organizadores de eventos')
-@Controller('account/user')
+@Controller('user/account')
 export class CreateUserController {
   constructor(private readonly createUserService: CreateUserService) {}
 
   @Post()
   @UseGuards(AdminGuard)
   @ApiCreateUserResponses()
-  async handle(@Body() data: CreateUserInput, @Res() res: Response) {
-    const result = await this.createUserService.execute(data);
+  async handle(@Body() input: CreateUserInput, @Res() res: Response) {
+    const data = await this.createUserService.execute(input);
     return res.status(HttpStatus.CREATED).json({
       message: 'Conta de usuário criada com sucesso',
-      result,
+      data,
     });
   }
 }
