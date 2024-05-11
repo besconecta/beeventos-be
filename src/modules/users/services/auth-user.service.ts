@@ -17,15 +17,15 @@ export class AuthUserService {
     private readonly bcryptService: BcryptService,
   ) {}
 
-  async execute(data: AuthUserInput): Promise<string> {
-    const user = await this.userRepository.findByEmail(data.email);
+  async execute(input: AuthUserInput): Promise<string> {
+    const user = await this.userRepository.findByEmail(input.email);
 
     if (!user) {
       throw new NotFoundException(`E-mail não encontrado`);
     }
 
     const passwordMatch = await this.bcryptService.comparePassword(
-      data.password,
+      input.password,
       user.password,
     );
 

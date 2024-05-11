@@ -12,15 +12,17 @@ export class CreateUserService {
     private readonly bcryptService: BcryptService,
   ) {}
 
-  async execute(data: CreateUserInput): Promise<UserAccountOutput> {
-    if (data.password !== data.passwordConfirmation) {
+  async execute(input: CreateUserInput): Promise<UserAccountOutput> {
+    if (input.password !== input.passwordConfirmation) {
       throw new BadRequestException('As senhas não coincidem');
     }
 
-    const hashedPassword = await this.bcryptService.hashPassword(data.password);
+    const hashedPassword = await this.bcryptService.hashPassword(
+      input.password,
+    );
 
     return await this.userRepository.create({
-      ...data,
+      ...input,
       password: hashedPassword,
     });
   }
