@@ -1,5 +1,6 @@
 import {
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -12,7 +13,6 @@ export class EntityBase {
 
   @CreateDateColumn({
     name: 'dh_created_at',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
@@ -20,4 +20,9 @@ export class EntityBase {
     name: 'dh_updated_at',
   })
   updatedAt: Date;
+
+  @DeleteDateColumn({
+    name: 'dh_deleted_at',
+  })
+  deletedAt: Date;
 }

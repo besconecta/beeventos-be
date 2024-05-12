@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from '../../../shared/auth/services/auth.service';
 import {
   CreateEventTypeController,
+  DeleteEventTypeController,
   ReadEventsTypesController,
   UpdateEventTypeController,
 } from './controllers';
@@ -11,6 +12,7 @@ import { EventTypeEntity } from './entities';
 import { EventTypeRepository } from './repositories';
 import {
   CreateEventTypeService,
+  DeleteEventTypeService,
   ReadEventsTypesService,
   UpdateEventTypeService,
 } from './services';
@@ -20,12 +22,14 @@ import {
   providers: [
     AuthService,
     CreateEventTypeService,
+    DeleteEventTypeService,
     EventTypeRepository,
     ReadEventsTypesService,
     UpdateEventTypeService,
   ],
   controllers: [
     CreateEventTypeController,
+    DeleteEventTypeController,
     ReadEventsTypesController,
     UpdateEventTypeController,
   ],

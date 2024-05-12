@@ -7,6 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
+import { TokenExpiredError } from '@nestjs/jwt';
 import { Request } from 'express';
 import { QueryFailedError } from 'typeorm';
 
@@ -48,6 +49,14 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     ) {
       httpStatus = HttpStatus.CONFLICT;
       message = `Registro duplicado: ${exception.driverError?.detail}`;
+    }
+
+    if (
+      exception instanceof TokenExpiredError &&
+      exception.message.includes('jwt expired')
+    ) {
+      httpStatus = HttpStatus.UNAUTHORIZED;
+      message = 'Sessão expirada! Faça login novamente';
     }
 
     console.log(exception);
