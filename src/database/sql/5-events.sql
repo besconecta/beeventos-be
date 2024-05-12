@@ -9,8 +9,9 @@ CREATE TABLE events (
     dh_start_at TIMESTAMP,
     dh_end_at TIMESTAMP,
     ds_status event_status,
-    dh_created_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo'),
-    dh_updated_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo'),
+    dh_created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    dh_updated_at TIMESTAMP WITH TIME ZONE,
+    dh_deleted_at TIMESTAMP WITH TIME ZONE,
     FOREIGN KEY (event_type_id) REFERENCES events_types (id),
     FOREIGN KEY (user_id) REFERENCES users (id),
     UNIQUE (event_type_id, user_id)
