@@ -4,12 +4,12 @@ import { BcryptService } from 'src/shared/bcrypt/bcrypt.service';
 
 import { AuthService } from '../../shared/auth/services/auth.service';
 import { AuthUserController, CreateUserController } from './controllers';
-import { UserEntity } from './entities';
+import { Users } from './entities';
 import { UserRepository } from './repositories';
 import { AuthUserService, CreateUserService } from './services';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity])],
+  imports: [TypeOrmModule.forFeature([Users])],
   providers: [
     CreateUserService,
     UserRepository,

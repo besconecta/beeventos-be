@@ -1,19 +1,25 @@
 import {
-  Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Atendees } from '../../../modules/atendees/entities';
+import { Events } from './event.entity';
+
 @Entity()
-export class EventsTypes {
+export class EventsAtendees {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false, length: 100 })
-  description: string;
+  @ManyToOne(() => Events)
+  event: Events;
+
+  @ManyToOne(() => Atendees)
+  atendee: Atendees;
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;

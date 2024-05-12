@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
-import { EventTypeEntity } from '../entities';
+import { EventsTypes } from '../entities';
 import { CreateEventTypeInput, UpdateEventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';
 
 @Injectable()
 export class EventTypeRepository {
   constructor(
-    @InjectRepository(EventTypeEntity)
-    private readonly repository: Repository<EventTypeEntity>,
+    @InjectRepository(EventsTypes)
+    private readonly repository: Repository<EventsTypes>,
   ) {}
 
   async create(input: CreateEventTypeInput): Promise<EventTypeOutput> {

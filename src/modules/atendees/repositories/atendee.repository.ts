@@ -3,15 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { Repository } from 'typeorm';
 
-import { AtendeeEntity } from '../entities';
+import { Atendees } from '../entities';
 import { CreateAtendeeInput } from '../input';
 import { AtendeeAccountOutput } from '../output';
 
 @Injectable()
 export class AtendeeRepository {
   constructor(
-    @InjectRepository(AtendeeEntity)
-    private readonly repository: Repository<AtendeeEntity>,
+    @InjectRepository(Atendees)
+    private readonly repository: Repository<Atendees>,
   ) {}
 
   async create(input: CreateAtendeeInput): Promise<AtendeeAccountOutput> {
@@ -20,7 +20,7 @@ export class AtendeeRepository {
       excludeExtraneousValues: true,
     });
   }
-  async findByEmail(atendeeEmail: string): Promise<AtendeeEntity> {
+  async findByEmail(atendeeEmail: string): Promise<Atendees> {
     return await this.repository.findOne({ where: { email: atendeeEmail } });
   }
 }

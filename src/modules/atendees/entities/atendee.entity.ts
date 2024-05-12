@@ -1,18 +1,41 @@
-import { Column, Entity } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-import { EntityBase } from '../../../shared/entities';
+import { Events } from '../../../modules/events/entities/event.entity';
 
-@Entity({ name: 'atendees' })
-export class AtendeeEntity extends EntityBase {
-  @Column({ name: 'ds_firstname', nullable: false, length: 100 })
+@Entity()
+export class Atendees {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @ManyToMany(() => Events)
+  events: Events[];
+
+  @Column({ nullable: false, length: 100 })
   firstname: string;
 
-  @Column({ name: 'ds_lastname', nullable: false, length: 100 })
+  @Column({ nullable: false, length: 100 })
   lastname: string;
 
-  @Column({ name: 'ds_email', nullable: false, length: 100, unique: true })
+  @Column({ nullable: false, length: 100, unique: true })
   email: string;
 
-  @Column({ name: 'hs_password', nullable: false, length: 255 })
+  @Column({ nullable: false, length: 255 })
   password: string;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ type: 'timestamptz' })
+  deletedAt: Date;
 }

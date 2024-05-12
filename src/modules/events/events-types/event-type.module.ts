@@ -8,7 +8,7 @@ import {
   ReadEventsTypesController,
   UpdateEventTypeController,
 } from './controllers';
-import { EventTypeEntity } from './entities';
+import { EventsTypes } from './entities';
 import { EventTypeRepository } from './repositories';
 import {
   CreateEventTypeService,
@@ -18,7 +18,7 @@ import {
 } from './services';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([EventTypeEntity])],
+  imports: [TypeOrmModule.forFeature([EventsTypes])],
   providers: [
     AuthService,
     CreateEventTypeService,
