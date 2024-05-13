@@ -6,12 +6,17 @@ import { AuthService } from '../../shared/auth/services/auth.service';
 import { AuthUserController, CreateUserController } from './controllers';
 import { Users } from './entities';
 import { UserRepository } from './repositories';
-import { AuthUserService, CreateUserService } from './services';
+import {
+  AuthUserService,
+  CreateUserService,
+  ReadUserByIdService,
+} from './services';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Users])],
   providers: [
     CreateUserService,
+    ReadUserByIdService,
     UserRepository,
     BcryptService,
     AuthUserService,

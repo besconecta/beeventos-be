@@ -23,4 +23,11 @@ export class UserRepository {
   async findByEmail(userEmail: string): Promise<Users> {
     return await this.repository.findOne({ where: { email: userEmail } });
   }
+
+  async findById(userId: string): Promise<UserAccountOutput> {
+    const userAccount = await this.repository.findOne({
+      where: { id: userId },
+    });
+    return plainToClass(UserAccountOutput, userAccount);
+  }
 }
