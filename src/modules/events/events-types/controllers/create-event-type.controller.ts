@@ -14,7 +14,7 @@ import { CreateEventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';
 import { CreateEventTypeService } from '../services';
 
-@Controller('event/type')
+@Controller('events/types')
 export class CreateEventTypeController {
   constructor(
     private readonly createEventTypeService: CreateEventTypeService,

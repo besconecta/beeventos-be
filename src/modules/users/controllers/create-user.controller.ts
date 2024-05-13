@@ -1,17 +1,24 @@
-import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 
+import { AdminGuard } from '../../../shared/auth/guard';
 import { ApiCreateUserResponses } from '../decorators';
 import { CreateUserInput } from '../input';
 import { CreateUserService } from '../services';
 
-//import { AdminGuard } from '../../../shared/auth/guard';
-@Controller('user/account')
+@Controller('users/register')
 export class CreateUserController {
   constructor(private readonly createUserService: CreateUserService) {}
 
   @Post()
-  //@UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @ApiCreateUserResponses()
   async handle(@Body() input: CreateUserInput, @Res() res: Response) {
     const data = await this.createUserService.execute(input);

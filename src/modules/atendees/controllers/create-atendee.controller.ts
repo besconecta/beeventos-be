@@ -5,7 +5,7 @@ import { ApiCreateAtendeeResponses } from '../decorators';
 import { CreateAtendeeInput } from '../input';
 import { CreateAtendeeService } from '../services';
 
-@Controller('atendee/account')
+@Controller('atendees/register')
 export class CreateAtendeeController {
   constructor(private readonly createAtendeeService: CreateAtendeeService) {}
 

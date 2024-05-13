@@ -14,7 +14,7 @@ import { ApiDeleteEventTypeResponses } from '../decorators';
 import { EventTypeOutput } from '../output';
 import { DeleteEventTypeService } from '../services';
 
-@Controller('event/type')
+@Controller('events/types')
 export class DeleteEventTypeController {
   constructor(
     private readonly deleteEventTypeService: DeleteEventTypeService,

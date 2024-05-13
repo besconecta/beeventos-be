@@ -6,7 +6,7 @@ import { ApiReadEventsTypesResponses } from '../decorators';
 import { EventTypeOutput } from '../output';
 import { ReadEventsTypesService } from '../services';
 
-@Controller('event/type')
+@Controller('events/types')
 export class ReadEventsTypesController {
   constructor(
     private readonly readEventsTypesService: ReadEventsTypesService,

@@ -6,7 +6,7 @@ import { AuthUserInput } from '../input';
 import { AuthUserOutput } from '../output';
 import { AuthUserService } from '../services';
 
-@Controller('user/login')
+@Controller('users/login')
 export class AuthUserController {
   constructor(private readonly authUserService: AuthUserService) {}
 
