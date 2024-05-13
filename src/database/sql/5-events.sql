@@ -14,5 +14,4 @@ CREATE TABLE events (
     dh_deleted_at TIMESTAMP WITH TIME ZONE,
     FOREIGN KEY (event_type_id) REFERENCES events_types (id),
     FOREIGN KEY (user_id) REFERENCES users (id),
-    UNIQUE (event_type_id, user_id)
 );

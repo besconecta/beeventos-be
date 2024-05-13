@@ -20,11 +20,11 @@ export class Events {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => EventsTypes)
-  eventType: EventsTypes;
+  @ManyToOne(() => EventsTypes, (eventType) => eventType.id)
+  eventTypeId: string;
 
-  @ManyToOne(() => Users)
-  user: Users;
+  @ManyToOne(() => Users, (user) => user.id)
+  userId: string;
 
   @ManyToMany(() => Atendees)
   @JoinTable()
@@ -36,16 +36,16 @@ export class Events {
   @Column({ type: 'text', nullable: false })
   about: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true })
   bannerUrl: string;
 
   @Column({ length: 255, nullable: false })
   local: string;
 
-  @Column()
+  @Column({ type: 'timestamptz', nullable: true })
   startAt: Date;
 
-  @Column()
+  @Column({ type: 'timestamptz', nullable: true })
   endAt: Date;
 
   @Column({ nullable: false })
