@@ -14,6 +14,7 @@ import {
   CreateEventTypeService,
   DeleteEventTypeService,
   ReadEventsTypesService,
+  ReadEventTypeByIdService,
   UpdateEventTypeService,
 } from './services';
 
@@ -25,6 +26,7 @@ import {
     DeleteEventTypeService,
     EventTypeRepository,
     ReadEventsTypesService,
+    ReadEventTypeByIdService,
     UpdateEventTypeService,
   ],
   controllers: [
@@ -33,5 +35,6 @@ import {
     ReadEventsTypesController,
     UpdateEventTypeController,
   ],
+  exports: [ReadEventTypeByIdService],
 })
 export class EventTypeModule {}
