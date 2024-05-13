@@ -1,1 +1,1 @@
-export * from './api-create-event-type-responses.decorator';
+export * from './api-create-event-responses.decorator';
