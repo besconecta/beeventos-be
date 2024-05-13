@@ -3,6 +3,7 @@ import {
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOperation,
   ApiTags,
   ApiUnauthorizedResponse,
@@ -21,6 +22,12 @@ export function ApiCreateEventResponses() {
     ApiConflictResponse({
       description:
         'Registro duplicado: Key (field)=(description_field) already exists.',
+    }),
+    ApiNotFoundResponse({
+      description: 'Registros não encontrados',
+      schema: {
+        example: ['Usuário não encontrado', 'Tipo de evento não encontrado'],
+      },
     }),
     ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
     ApiInternalServerErrorResponse({
