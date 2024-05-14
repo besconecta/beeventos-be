@@ -1,8 +1,8 @@
 import { applyDecorators } from '@nestjs/common';
 import {
-  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNoContentResponse,
+  ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
@@ -13,7 +13,7 @@ export function ApiReadEventsResponses() {
   return applyDecorators(
     ApiTags('Gestão de eventos'),
     ApiOperation({ description: 'Listar todos os eventos' }),
-    ApiCreatedResponse({
+    ApiOkResponse({
       description: 'Eventos listados com sucesso',
       type: [EventOutput],
     }),

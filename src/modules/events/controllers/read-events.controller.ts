@@ -17,7 +17,7 @@ export class ReadEventsController {
     if (data.length === 0) {
       return res.status(HttpStatus.NO_CONTENT).json({});
     }
-    return res.status(HttpStatus.CREATED).json({
+    return res.status(HttpStatus.OK).json({
       data,
     });
   }
