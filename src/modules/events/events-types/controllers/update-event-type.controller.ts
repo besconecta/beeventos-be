@@ -8,10 +8,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { UpdateInputValidator } from 'src/shared/validations/input.validation';
 
 import { UserGuard } from '../../../../shared/auth/guard';
 import { UUIDFormatValidation } from '../../../../shared/validations';
+import { UpdateInputValidator } from '../../../../shared/validations/input.validation';
 import { ApiUpdateEventTypeResponses } from '../decorators';
 import { UpdateEventTypeInput } from '../input';
 import { EventTypeOutput } from '../output';

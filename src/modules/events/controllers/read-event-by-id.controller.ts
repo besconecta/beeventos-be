@@ -7,8 +7,8 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { UUIDFormatValidation } from 'src/shared/validations';
 
-import { UUIDFormatValidation } from '../../../shared/validations';
 import { ApiReadEventByIdResponses } from '../decorators';
 import { EventOutput } from '../output';
 import { ReadEventByIdService } from '../services';
@@ -17,7 +17,7 @@ import { ReadEventByIdService } from '../services';
 export class ReadEventByIdController {
   constructor(private readonly readEventByIdService: ReadEventByIdService) {}
 
-  @Get(':id')
+  @Get()
   @ApiReadEventByIdResponses()
   async handle(
     @Param('id', new UUIDFormatValidation()) id: string,

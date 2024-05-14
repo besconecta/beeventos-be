@@ -8,6 +8,7 @@ import {
   ReadEventByIdController,
   ReadEventsController,
 } from './controllers';
+import { UpdateEventController } from './controllers/update-event.controller';
 import { Events } from './entities';
 import { EventTypeModule } from './events-types/event-type.module';
 import { EventRepository } from './repositories';
@@ -15,6 +16,7 @@ import {
   CreateEventService,
   ReadEventByIdService,
   ReadEventsService,
+  UpdateEventService,
 } from './services';
 
 @Module({
@@ -25,11 +27,13 @@ import {
     CreateEventService,
     ReadEventsService,
     ReadEventByIdService,
+    UpdateEventService,
   ],
   controllers: [
     CreateEventController,
     ReadEventsController,
     ReadEventByIdController,
+    UpdateEventController,
   ],
 })
 export class EventModule {}
