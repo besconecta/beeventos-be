@@ -25,4 +25,8 @@ export class EventRepository {
   async readAll(): Promise<EventOutput[]> {
     return await this.repository.find();
   }
+
+  async readById(id: string): Promise<EventOutput> {
+    return await this.repository.findOne({ where: { id: id } });
+  }
 }
