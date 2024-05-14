@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { BcryptService } from 'src/shared/auth/services/bcrypt.service';
 
+import { BcryptService } from '../../../shared/auth/services/bcrypt.service';
 import { CreateAtendeeInput } from '../input';
 import { AtendeeAccountOutput } from '../output';
 import { AtendeeRepository } from '../repositories';

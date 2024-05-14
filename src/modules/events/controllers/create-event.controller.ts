@@ -7,8 +7,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { UserGuard } from 'src/shared/auth/guard';
 
+import { UserGuard } from '../../../shared/auth/guard';
 import { ApiCreateEventResponses } from '../decorators';
 import { CreateEventInput } from '../input';
 import { EventOutput } from '../output';

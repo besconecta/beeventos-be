@@ -7,8 +7,8 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { UUIDFormatValidation } from 'src/shared/validations';
 
+import { UUIDFormatValidation } from '../../../shared/validations';
 import { ApiReadEventByIdResponses } from '../decorators';
 import { EventOutput } from '../output';
 import { ReadEventByIdService } from '../services';

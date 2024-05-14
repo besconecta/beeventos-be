@@ -5,6 +5,7 @@ import { AuthService } from '../../shared/auth/services/auth.service';
 import { UserModule } from '../users/user.module';
 import {
   CreateEventController,
+  DeleteEventController,
   ReadEventByIdController,
   ReadEventsController,
 } from './controllers';
@@ -14,6 +15,7 @@ import { EventTypeModule } from './events-types/event-type.module';
 import { EventRepository } from './repositories';
 import {
   CreateEventService,
+  DeleteEventService,
   ReadEventByIdService,
   ReadEventsService,
   UpdateEventService,
@@ -28,12 +30,14 @@ import {
     ReadEventsService,
     ReadEventByIdService,
     UpdateEventService,
+    DeleteEventService,
   ],
   controllers: [
     CreateEventController,
     ReadEventsController,
     ReadEventByIdController,
     UpdateEventController,
+    DeleteEventController,
   ],
 })
 export class EventModule {}

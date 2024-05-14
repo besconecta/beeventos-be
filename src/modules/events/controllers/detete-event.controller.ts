@@ -1,9 +1,8 @@
 import {
-  Body,
   Controller,
+  Delete,
   HttpStatus,
   Param,
-  Patch,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -11,33 +10,28 @@ import { Response } from 'express';
 
 import { UserGuard } from '../../../shared/auth/guard';
 import { UUIDFormatValidation } from '../../../shared/validations';
-import { UpdateInputValidator } from '../../../shared/validations/input.validation';
-import { ApiUpdateEventResponses } from '../decorators';
-import { UpdateEventInput } from '../input';
+import { ApiDeleteEventResponses } from '../decorators';
 import { EventOutput } from '../output';
-import { UpdateEventService } from '../services';
+import { DeleteEventService } from '../services';
 
 @Controller('events')
-export class UpdateEventController {
-  constructor(private readonly updateEventService: UpdateEventService) {}
+export class DeleteEventController {
+  constructor(private readonly deleteEventService: DeleteEventService) {}
 
-  @Patch(':id')
-  @ApiUpdateEventResponses()
+  @Delete(':id')
+  @ApiDeleteEventResponses()
   @UseGuards(UserGuard)
   async handle(
     @Param('id', new UUIDFormatValidation()) id: string,
-    @Body() input: UpdateEventInput,
     @Res() res: Response,
   ): Promise<Response<EventOutput>> {
-    UpdateInputValidator.validate(input);
-
-    const data = await this.updateEventService.execute(id, input);
+    const data = await this.deleteEventService.execute(id);
 
     if (data.affected === 0) {
       return res.status(HttpStatus.NO_CONTENT).json({});
     }
     return res.status(HttpStatus.OK).json({
-      message: 'Evento atualizado com sucesso',
+      message: 'Evento excluído com sucesso',
     });
   }
 }

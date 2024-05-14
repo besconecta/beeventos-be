@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/shared/auth/auth.module';
 
+import { AuthModule } from '../../shared/auth/auth.module';
 import { AuthAtendeeController, CreateAtendeeController } from './controllers';
 import { Atendees } from './entities';
 import { AtendeeRepository } from './repositories';
