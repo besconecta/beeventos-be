@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 
 import { Events } from '../entities';
 import { CreateEventInput } from '../input';
-import { CreateEventOutput } from '../output';
+import { EventOutput } from '../output';
 
 @Injectable()
 export class EventRepository {
@@ -14,11 +14,15 @@ export class EventRepository {
     private readonly repository: Repository<Events>,
   ) {}
 
-  async create(input: CreateEventInput): Promise<CreateEventOutput> {
+  async create(input: CreateEventInput): Promise<EventOutput> {
     const createdEvent = await this.repository.save(input);
 
-    return plainToClass(CreateEventOutput, createdEvent, {
+    return plainToClass(EventOutput, createdEvent, {
       excludeExtraneousValues: true,
     });
+  }
+
+  async readAll(): Promise<EventOutput[]> {
+    return await this.repository.find();
   }
 }

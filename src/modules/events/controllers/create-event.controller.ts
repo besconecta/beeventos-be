@@ -11,7 +11,7 @@ import { UserGuard } from 'src/shared/auth/guard';
 
 import { ApiCreateEventResponses } from '../decorators';
 import { CreateEventInput } from '../input';
-import { CreateEventOutput } from '../output';
+import { EventOutput } from '../output';
 import { CreateEventService } from '../services';
 
 @Controller('events')
@@ -24,7 +24,7 @@ export class CreateEventController {
   async handle(
     @Body() input: CreateEventInput,
     @Res() res: Response,
-  ): Promise<Response<CreateEventOutput>> {
+  ): Promise<Response<EventOutput>> {
     const data = await this.createEventService.execute(input);
     return res.status(HttpStatus.CREATED).json({
       message: 'Evento criado com sucesso',

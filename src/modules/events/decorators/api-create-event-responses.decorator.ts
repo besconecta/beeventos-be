@@ -9,7 +9,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { CreateEventOutput } from '../output';
+import { EventOutput } from '../output';
 
 export function ApiCreateEventResponses() {
   return applyDecorators(
@@ -17,7 +17,7 @@ export function ApiCreateEventResponses() {
     ApiOperation({ description: 'Cadastro evento' }),
     ApiCreatedResponse({
       description: 'Evento criado com sucesso',
-      type: CreateEventOutput,
+      type: EventOutput,
     }),
     ApiConflictResponse({
       description:

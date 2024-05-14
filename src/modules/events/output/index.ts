@@ -1,1 +1,1 @@
-export * from './create-event.output';
+export * from './event.output';
