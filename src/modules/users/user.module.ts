@@ -1,22 +1,25 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BcryptService } from 'src/shared/bcrypt/bcrypt.service';
 
-import { AuthService } from '../../shared/auth/services/auth.service';
+import { AuthModule } from '../../shared/auth/auth.module';
 import { AuthUserController, CreateUserController } from './controllers';
-import { UserEntity } from './entities';
+import { Users } from './entities';
 import { UserRepository } from './repositories';
-import { AuthUserService, CreateUserService } from './services';
+import {
+  AuthUserService,
+  CreateUserService,
+  ReadUserByIdService,
+} from './services';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity])],
+  imports: [TypeOrmModule.forFeature([Users]), AuthModule],
   providers: [
     CreateUserService,
+    ReadUserByIdService,
     UserRepository,
-    BcryptService,
     AuthUserService,
-    AuthService,
   ],
   controllers: [CreateUserController, AuthUserController],
+  exports: [ReadUserByIdService],
 })
 export class UserModule {}

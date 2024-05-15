@@ -6,6 +6,7 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle('Beeventos API')
     .setDescription('Backend da aplicação Beeventos')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

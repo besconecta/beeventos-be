@@ -5,12 +5,14 @@ import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiOperation,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { AtendeeAccountOutput } from '../output';
 
 export function ApiCreateAtendeeResponses() {
   return applyDecorators(
+    ApiTags('Participantes de eventos'),
     ApiOperation({
       description: 'Cria conta de participante organizador de eventos',
     }),

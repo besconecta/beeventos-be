@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { BcryptService } from '../../../shared/bcrypt/bcrypt.service';
+import { BcryptService } from '../../../shared/auth/services/bcrypt.service';
 import { AuthUserInput } from '../input';
 import { UserRepository } from '../repositories';
 

@@ -1,22 +1,40 @@
-import { Column, Entity } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-import { EntityBase } from '../../../shared/entities';
 import { AccountRole } from '../../../shared/enums';
 
-@Entity({ name: 'users' })
-export class UserEntity extends EntityBase {
-  @Column({ name: 'ds_firstname', nullable: false, length: 100 })
+@Entity()
+export class Users {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ nullable: false, length: 100 })
   firstname: string;
 
-  @Column({ name: 'ds_lastname', nullable: false, length: 100 })
+  @Column({ nullable: false, length: 100 })
   lastname: string;
 
-  @Column({ name: 'ds_email', nullable: false, length: 100, unique: true })
+  @Column({ nullable: false, length: 100, unique: true })
   email: string;
 
-  @Column({ name: 'hs_password', nullable: false, length: 255 })
+  @Column({ nullable: false, length: 255 })
   password: string;
 
-  @Column({ name: 'ds_role', nullable: false })
+  @Column({ nullable: false })
   role: AccountRole;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ type: 'timestamptz' })
+  deletedAt: Date;
 }
