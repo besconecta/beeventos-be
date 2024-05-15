@@ -1,13 +1,11 @@
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { ApiCreateAtendeeResponses } from '../decorators';
 import { CreateAtendeeInput } from '../input';
 import { CreateAtendeeService } from '../services';
 
-@ApiTags('Participantes de eventos')
-@Controller('atendee/account')
+@Controller('atendees/register')
 export class CreateAtendeeController {
   constructor(private readonly createAtendeeService: CreateAtendeeService) {}
 

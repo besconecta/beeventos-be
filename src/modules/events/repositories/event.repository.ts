@@ -1,0 +1,41 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { plainToClass } from 'class-transformer';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+
+import { Events } from '../entities';
+import { CreateEventInput } from '../input';
+import { UpdateEventInput } from '../input/update-event.input';
+import { EventOutput } from '../output';
+
+@Injectable()
+export class EventRepository {
+  constructor(
+    @InjectRepository(Events)
+    private readonly repository: Repository<Events>,
+  ) {}
+
+  async create(input: CreateEventInput): Promise<EventOutput> {
+    const createdEvent = await this.repository.save(input);
+
+    return plainToClass(EventOutput, createdEvent, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  async readAll(): Promise<EventOutput[]> {
+    return await this.repository.find();
+  }
+
+  async readById(id: string): Promise<EventOutput> {
+    return await this.repository.findOne({ where: { id: id } });
+  }
+
+  async update(id: string, input: UpdateEventInput): Promise<UpdateResult> {
+    return await this.repository.update(id, input);
+  }
+
+  async delete(id: string): Promise<DeleteResult> {
+    return await this.repository.softDelete(id);
+  }
+}

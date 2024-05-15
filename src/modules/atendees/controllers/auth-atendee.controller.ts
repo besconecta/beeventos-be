@@ -1,5 +1,4 @@
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { ApiAuthAtendeeResponses } from '../decorators';
@@ -7,8 +6,7 @@ import { AuthAtendeeInput } from '../input';
 import { AuthAtendeeOutput } from '../output';
 import { AuthAtendeeService } from '../services';
 
-@ApiTags('Participantes de eventos')
-@Controller('atendee/login')
+@Controller('atendees/login')
 export class AuthAtendeeController {
   constructor(private readonly authAtendeeService: AuthAtendeeService) {}
 

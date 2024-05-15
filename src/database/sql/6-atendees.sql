@@ -4,6 +4,7 @@ CREATE TABLE atendees (
     ds_lastname VARCHAR(100) NOT NULL,
     ds_email VARCHAR(100) UNIQUE NOT NULL,
     hs_password VARCHAR(255) NOT NULL,
-    dh_created_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo'),
-    dh_updated_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo')
+    dh_created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    dh_updated_at TIMESTAMP WITH TIME ZONE,
+    dh_deleted_at TIMESTAMP WITH TIME ZONE
 );
