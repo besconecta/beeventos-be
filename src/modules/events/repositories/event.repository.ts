@@ -4,7 +4,8 @@ import { plainToClass } from 'class-transformer';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 import { Events } from '../entities';
-import { CreateEventInput } from '../input';
+import { EventStatus } from '../enums';
+import { CreateEventInput, EventsFilters } from '../input';
 import { UpdateEventInput } from '../input/update-event.input';
 import { EventOutput } from '../output';
 
@@ -29,6 +30,28 @@ export class EventRepository {
 
   async readById(id: string): Promise<EventOutput> {
     return await this.repository.findOne({ where: { id: id } });
+  }
+
+  async readAvaliable(filterOptions: EventsFilters): Promise<EventOutput[]> {
+    if (filterOptions) {
+      const queryBuilder = this.repository
+        .createQueryBuilder('events')
+        .where({ status: EventStatus.STARTED });
+
+      Object.entries(filterOptions).forEach(([key, value]) => {
+        if (value) {
+          queryBuilder.andWhere(`UPPER(events.${key}) LIKE UPPER(:${key})`, {
+            [key]: `%${value}%`,
+          });
+        }
+      });
+
+      const { entities } = await queryBuilder.getRawAndEntities();
+      return entities;
+    }
+    return await this.repository.find({
+      where: { status: EventStatus.STARTED },
+    });
   }
 
   async update(id: string, input: UpdateEventInput): Promise<UpdateResult> {
