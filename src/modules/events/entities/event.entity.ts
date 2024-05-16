@@ -48,15 +48,23 @@ export class Events {
   @Column({ type: 'timestamptz', nullable: true })
   endAt: Date;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, type: 'enum', enum: EventStatus })
   status: EventStatus;
 
-  @CreateDateColumn({ type: 'timestamptz' })
+  @CreateDateColumn({
+    type: 'date',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
+  @UpdateDateColumn({
+    type: 'date',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   updatedAt: Date;
 
-  @DeleteDateColumn({ type: 'timestamptz' })
+  @DeleteDateColumn({
+    type: 'date',
+  })
   deletedAt: Date;
 }

@@ -26,15 +26,23 @@ export class Users {
   @Column({ nullable: false, length: 255 })
   password: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, type: 'enum', enum: AccountRole })
   role: AccountRole;
 
-  @CreateDateColumn({ type: 'timestamptz' })
+  @CreateDateColumn({
+    type: 'date',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
+  @UpdateDateColumn({
+    type: 'date',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   updatedAt: Date;
 
-  @DeleteDateColumn({ type: 'timestamptz' })
+  @DeleteDateColumn({
+    type: 'date',
+  })
   deletedAt: Date;
 }
