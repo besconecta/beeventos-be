@@ -32,7 +32,7 @@ export class EventOutput {
     example: '2024-05-12 20:00:00',
   })
   @Expose()
-  startAt: Date;
+  startAt: Date | string;
 
   @ApiProperty({
     name: 'endAt',
@@ -40,7 +40,7 @@ export class EventOutput {
     example: '2024-05-12 20:30:00',
   })
   @Expose()
-  endAt: Date;
+  endAt: Date | string;
 
   @ApiProperty({
     name: 'createdAt',
@@ -48,7 +48,15 @@ export class EventOutput {
     example: '2024-05-12 20:30:00',
   })
   @Expose()
-  createdAt: Date;
+  createdAt: Date | string;
+
+  @ApiProperty({
+    name: 'status',
+    description: 'Status do evento',
+    example: 'started',
+  })
+  @Expose()
+  status: string;
 
   @ApiProperty({
     name: 'updatedAt',
@@ -56,5 +64,5 @@ export class EventOutput {
     example: '2024-05-12 20:30:00',
   })
   @Expose()
-  updatedAt: Date;
+  updatedAt: Date | string;
 }

@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { ReadUserByIdService } from '../../../modules/users/services';
-import { EventStatus } from '../enums';
 import { ReadEventTypeByIdService } from '../events-types/services';
 import { CreateEventInput } from '../input';
 import { EventOutput } from '../output';
@@ -30,9 +29,6 @@ export class CreateEventService {
       throw new NotFoundException('Tipo do evento não encontrado');
     }
 
-    return await this.eventRepository.create({
-      ...input,
-      status: EventStatus.IDLE,
-    });
+    return await this.eventRepository.create(input);
   }
 }

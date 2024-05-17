@@ -50,7 +50,7 @@ export class Events {
   @Column({ type: 'timestamp without time zone' })
   endAt: Date;
 
-  @Column()
+  @Column({ type: 'enum', enum: EventStatus })
   status: EventStatus;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })

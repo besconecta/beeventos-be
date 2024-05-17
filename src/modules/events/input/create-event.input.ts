@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsUUID, MaxLength } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsUUID, MaxLength } from 'class-validator';
 
 import { EventStatus } from '../enums';
 
@@ -56,6 +56,17 @@ export class CreateEventInput {
   local: string;
 
   @ApiProperty({
+    name: 'status',
+    description: 'Status do evento',
+    example: 'idle | started | finished',
+  })
+  @IsEnum(EventStatus, {
+    message: 'Status deve ser: idle, started ou finished',
+  })
+  @IsNotEmpty({ message: 'Status do evento é obrigatório' })
+  status: EventStatus;
+
+  @ApiProperty({
     name: 'startAt',
     description: 'Data/hora de início',
     example: '2024-05-12 20:00:00',
@@ -68,6 +79,4 @@ export class CreateEventInput {
     example: '2024-05-12 20:30:00',
   })
   endAt: Date;
-
-  status: EventStatus.IDLE;
 }
