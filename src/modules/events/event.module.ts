@@ -6,6 +6,7 @@ import { UserModule } from '../users/user.module';
 import {
   CreateEventController,
   DeleteEventController,
+  ReadAvaliableEventsController,
   ReadEventByIdController,
   ReadEventsController,
 } from './controllers';
@@ -16,6 +17,7 @@ import { EventRepository } from './repositories';
 import {
   CreateEventService,
   DeleteEventService,
+  ReadAvaliableEventsService,
   ReadEventByIdService,
   ReadEventsService,
   UpdateEventService,
@@ -27,6 +29,7 @@ import {
     AuthService,
     EventRepository,
     CreateEventService,
+    ReadAvaliableEventsService,
     ReadEventsService,
     ReadEventByIdService,
     UpdateEventService,
@@ -34,6 +37,7 @@ import {
   ],
   controllers: [
     CreateEventController,
+    ReadAvaliableEventsController,
     ReadEventsController,
     ReadEventByIdController,
     UpdateEventController,

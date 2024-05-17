@@ -8,8 +8,8 @@ export const eventsTypesArrayMapper = (
     const output: EventTypeOutput = {
       id: eventType.id,
       description: eventType.description,
-      createdAt: eventType.createdAt.toLocaleString('pt-BR'),
-      updatedAt: eventType.updatedAt.toLocaleString('pt-BR'),
+      createdAt: eventType.createdAt,
+      updatedAt: eventType.updatedAt,
     };
     return output;
   });

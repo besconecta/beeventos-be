@@ -26,6 +26,7 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  await app.listen(3000);
+  const currentTime = new Date();
+  await app.listen(3000, () => console.log(currentTime));
 }
 bootstrap();

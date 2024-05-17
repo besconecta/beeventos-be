@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { plainToClass } from 'class-transformer';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 import { Events } from '../entities';
@@ -8,6 +7,7 @@ import { EventStatus } from '../enums';
 import { CreateEventInput, EventsFilters } from '../input';
 import { UpdateEventInput } from '../input/update-event.input';
 import { EventOutput } from '../output';
+import { eventsArrayMapper, eventsMapper } from './mappers';
 
 @Injectable()
 export class EventRepository {
@@ -18,18 +18,17 @@ export class EventRepository {
 
   async create(input: CreateEventInput): Promise<EventOutput> {
     const createdEvent = await this.repository.save(input);
-
-    return plainToClass(EventOutput, createdEvent, {
-      excludeExtraneousValues: true,
-    });
+    return eventsMapper(createdEvent);
   }
 
   async readAll(): Promise<EventOutput[]> {
-    return await this.repository.find();
+    const events = await this.repository.find();
+    return eventsArrayMapper(events);
   }
 
   async readById(id: string): Promise<EventOutput> {
-    return await this.repository.findOne({ where: { id: id } });
+    const event = await this.repository.findOne({ where: { id: id } });
+    return eventsMapper(event);
   }
 
   async readAvaliable(filterOptions: EventsFilters): Promise<EventOutput[]> {
@@ -47,7 +46,7 @@ export class EventRepository {
       });
 
       const { entities } = await queryBuilder.getRawAndEntities();
-      return entities;
+      return eventsArrayMapper(entities);
     }
     return await this.repository.find({
       where: { status: EventStatus.STARTED },
