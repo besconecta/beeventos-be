@@ -21,20 +21,12 @@ export class EventsAtendees {
   @ManyToOne(() => Atendees)
   atendee: Atendees;
 
-  @CreateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @UpdateDateColumn({ type: 'timestamptz', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @DeleteDateColumn({
-    type: 'timestamptz',
-  })
+  @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
 }

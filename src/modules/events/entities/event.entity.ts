@@ -20,10 +20,12 @@ export class Events {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => EventsTypes, (eventType) => eventType.id)
+  @ManyToOne(() => EventsTypes, (eventType) => eventType.id, {
+    nullable: false,
+  })
   eventTypeId: string;
 
-  @ManyToOne(() => Users, (user) => user.id)
+  @ManyToOne(() => Users, (user) => user.id, { nullable: false })
   userId: string;
 
   @ManyToMany(() => Atendees)
@@ -42,29 +44,21 @@ export class Events {
   @Column({ length: 255, nullable: false })
   local: string;
 
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamp without time zone' })
   startAt: Date;
 
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamp without time zone' })
   endAt: Date;
 
-  @Column({ nullable: false, type: 'enum', enum: EventStatus })
+  @Column()
   status: EventStatus;
 
-  @CreateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @UpdateDateColumn({ type: 'timestamptz', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @DeleteDateColumn({
-    type: 'timestamptz',
-  })
+  @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
 }

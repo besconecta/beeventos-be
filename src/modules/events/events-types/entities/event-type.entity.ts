@@ -15,20 +15,12 @@ export class EventsTypes {
   @Column({ nullable: false, length: 100, unique: true })
   description: string;
 
-  @CreateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @DeleteDateColumn({
-    type: 'timestamptz',
-  })
+  @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
 }

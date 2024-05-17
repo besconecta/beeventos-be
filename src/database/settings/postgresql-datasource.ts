@@ -12,6 +12,9 @@ export const postgreSqlDataSource: DataSourceOptions = {
   entities: [__dirname + '/../../**/*.entity.{js,ts}'],
   //synchronize: true,
   logging: true,
+  extra: {
+    timezone: 'UTC',
+  },
 };
 
 const dataSource = new DataSource(postgreSqlDataSource);
