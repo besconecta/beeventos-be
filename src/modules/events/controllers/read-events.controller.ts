@@ -16,17 +16,13 @@ export class ReadEventsController {
     @Query() filterOptions: EventsFilters,
     @Res() res: Response,
   ): Promise<Response<EventOutput[]>> {
-    // const { startAt, endAt } = filterOptions;
-    // const startDate = new Date(startAt).toISOString();
-    // const endDate = new Date(endAt).toISOString();
+    const result = await this.readEventsService.execute(filterOptions);
 
-    const data = await this.readEventsService.execute(filterOptions);
-
-    if (data.length === 0) {
+    if (result.meta.itemCount === 0) {
       return res.status(HttpStatus.NO_CONTENT).json({});
     }
     return res.status(HttpStatus.OK).json({
-      data,
+      result,
     });
   }
 }

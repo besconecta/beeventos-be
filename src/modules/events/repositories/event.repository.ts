@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
+import {
+  PageDto,
+  PageMetaDto,
+  PageOptionsDto,
+} from '../../../shared/pagination';
 import { Events } from '../entities';
 import { EventStatus } from '../enums';
 import { CreateEventInput, EventsFilters } from '../input';
@@ -22,12 +27,26 @@ export class EventRepository {
     return eventsMapper(createdEvent);
   }
 
-  async readAll(filterOptions: EventsFilters): Promise<EventOutput[]> {
-    const queryBuilder = this.repository.createQueryBuilder('events');
-    queryEvents(filterOptions, queryBuilder);
+  async readAll(filterOptions: EventsFilters): Promise<PageDto<EventOutput>> {
+    const pageOptionsDto = new PageOptionsDto();
 
-    const { entities } = await queryBuilder.getRawAndEntities();
-    return eventsArrayMapper(entities);
+    const queryBuilder = this.repository.createQueryBuilder('events');
+
+    const query = queryEvents(filterOptions, queryBuilder);
+    query
+      .orderBy('events.startAt', pageOptionsDto.order)
+      .skip(pageOptionsDto.skip)
+      .take(pageOptionsDto.take);
+
+    const itemCount = await query.getCount();
+    const { entities } = await query.getRawAndEntities();
+
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto,
+    });
+
+    return new PageDto(eventsArrayMapper(entities), pageMetaDto);
   }
 
   async readById(id: string): Promise<EventOutput> {
@@ -35,15 +54,30 @@ export class EventRepository {
     return eventsMapper(event);
   }
 
-  async readAvaliable(filterOptions: EventsFilters): Promise<EventOutput[]> {
+  async readAvaliable(
+    filterOptions: EventsFilters,
+  ): Promise<PageDto<EventOutput>> {
+    const pageOptionsDto = new PageOptionsDto();
+
     const queryBuilder = this.repository
       .createQueryBuilder('events')
       .where({ status: EventStatus.STARTED });
 
-    queryEvents(filterOptions, queryBuilder);
+    const query = queryEvents(filterOptions, queryBuilder);
+    query
+      .orderBy('events.startAt', pageOptionsDto.order)
+      .skip(pageOptionsDto.skip)
+      .take(pageOptionsDto.take);
 
-    const { entities } = await queryBuilder.getRawAndEntities();
-    return eventsArrayMapper(entities);
+    const itemCount = await query.getCount();
+    const { entities } = await query.getRawAndEntities();
+
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto,
+    });
+
+    return new PageDto(eventsArrayMapper(entities), pageMetaDto);
   }
 
   async update(id: string, input: UpdateEventInput): Promise<UpdateResult> {

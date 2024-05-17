@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
+import { PageDto } from '../../../shared/pagination';
 import { EventsFilters } from '../input';
 import { EventOutput } from '../output';
 import { EventRepository } from '../repositories';
@@ -8,7 +9,7 @@ import { EventRepository } from '../repositories';
 export class ReadEventsService {
   constructor(private readonly eventRepository: EventRepository) {}
 
-  async execute(filterOptions: EventsFilters): Promise<EventOutput[]> {
+  async execute(filterOptions: EventsFilters): Promise<PageDto<EventOutput>> {
     return await this.eventRepository.readAll(filterOptions);
   }
 }
