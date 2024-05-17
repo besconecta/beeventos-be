@@ -1,4 +1,5 @@
-import { IsOptional } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsDateString, IsOptional } from 'class-validator';
 
 export class EventsFilters {
   @IsOptional()
@@ -11,8 +12,16 @@ export class EventsFilters {
   type: string;
 
   @IsOptional()
-  startAt: Date;
+  @IsDateString()
+  @Transform(({ value }) => new Date(value).toISOString(), {
+    toClassOnly: true,
+  })
+  startAt: string;
 
   @IsOptional()
-  endAt: Date;
+  @IsDateString()
+  @Transform(({ value }) => new Date(value).toISOString(), {
+    toClassOnly: true,
+  })
+  endAt: string;
 }

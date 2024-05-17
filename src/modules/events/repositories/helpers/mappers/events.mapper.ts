@@ -1,5 +1,5 @@
-import { Events } from '../../entities';
-import { EventOutput } from '../../output';
+import { Events } from '../../../entities';
+import { EventOutput } from '../../../output';
 
 export const eventsMapper = (data: Events): EventOutput => {
   const output: EventOutput = {
