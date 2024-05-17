@@ -1,8 +1,10 @@
+import { Events } from 'src/modules/events/entities';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -37,4 +39,7 @@ export class Users {
 
   @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
+
+  @OneToMany(() => Events, (event) => event.eventType)
+  events: Events[];
 }

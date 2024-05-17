@@ -22,9 +22,8 @@ export class EventRepository {
     private readonly repository: Repository<Events>,
   ) {}
 
-  async create(input: CreateEventInput): Promise<EventOutput> {
-    const createdEvent = await this.repository.save(input);
-    return eventsMapper(createdEvent);
+  async create(input: CreateEventInput): Promise<Events> {
+    return await this.repository.save(input);
   }
 
   async readAll(filterOptions: EventsFilters): Promise<PageDto<EventOutput>> {
@@ -34,6 +33,8 @@ export class EventRepository {
 
     const query = queryEvents(filterOptions, queryBuilder);
     query
+      .leftJoinAndSelect('events.eventType', 'eventType')
+      .leftJoinAndSelect('events.user', 'user')
       .orderBy('events.startAt', pageOptionsDto.order)
       .skip(pageOptionsDto.skip)
       .take(pageOptionsDto.take);

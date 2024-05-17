@@ -12,7 +12,7 @@ export class ReadEventsTypesController {
     private readonly readEventsTypesService: ReadEventsTypesService,
   ) {}
 
-  @Get()
+  @Get('all')
   @ApiReadEventsTypesResponses()
   @UseGuards(UserGuard)
   async handle(@Res() res: Response): Promise<Response<EventTypeOutput[]>> {

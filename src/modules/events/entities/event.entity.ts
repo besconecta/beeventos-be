@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -20,13 +21,20 @@ export class Events {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => EventsTypes, (eventType) => eventType.id, {
-    nullable: false,
-  })
+  @Column({ nullable: false })
   eventTypeId: string;
 
-  @ManyToOne(() => Users, (user) => user.id, { nullable: false })
+  @ManyToOne(() => EventsTypes, (eventType) => eventType.events, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'eventTypeId' })
+  eventType: EventsTypes;
+
+  @Column({ nullable: false })
   userId: string;
+
+  @ManyToOne(() => Users, (user) => user.events, { nullable: false })
+  user: Users;
 
   @ManyToMany(() => Atendees)
   @JoinTable()

@@ -11,12 +11,28 @@ export class EventOutput {
   id: string;
 
   @ApiProperty({
+    name: 'eventType',
+    description: 'Tipo de evento',
+    example: 'Apresentação acadêmica',
+  })
+  @Expose()
+  eventType: string;
+
+  @ApiProperty({
     name: 'title',
     description: 'Título do evento',
     example: 'Apresentação XYZ',
   })
   @Expose()
   title: string;
+
+  @ApiProperty({
+    name: 'user',
+    description: 'Organizador do evento',
+    example: 'Anakin Skywalker',
+  })
+  @Expose()
+  user: string;
 
   @ApiProperty({
     name: 'local',
