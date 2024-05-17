@@ -30,19 +30,19 @@ export class Users {
   role: AccountRole;
 
   @CreateDateColumn({
-    type: 'date',
+    type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    type: 'date',
+    type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
 
   @DeleteDateColumn({
-    type: 'date',
+    type: 'timestamptz',
   })
   deletedAt: Date;
 }
