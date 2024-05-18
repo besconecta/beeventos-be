@@ -7,6 +7,10 @@ export const queryEvents = (
   filterOptions: EventsFilters,
   queryBuilder: SelectQueryBuilder<Events>,
 ) => {
+  queryBuilder
+    .leftJoinAndSelect('events.eventType', 'eventType')
+    .leftJoinAndSelect('events.user', 'user');
+
   if (filterOptions) {
     Object.entries(filterOptions).forEach(([key, value]) => {
       if (value) {
@@ -21,6 +25,13 @@ export const queryEvents = (
               endAt: formattedDate,
             });
           }
+        } else if (key === 'eventType') {
+          queryBuilder.andWhere(
+            `UPPER(eventType.description) LIKE UPPER(:eventType)`,
+            {
+              eventType: `%${value}%`,
+            },
+          );
         } else {
           queryBuilder.andWhere(`UPPER(events.${key}) LIKE UPPER(:${key})`, {
             [key]: `%${value}%`,
@@ -29,5 +40,6 @@ export const queryEvents = (
       }
     });
   }
+
   return queryBuilder;
 };

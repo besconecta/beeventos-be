@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-import { EventOutput } from '../output';
 import { EventRepository } from '../repositories';
 
 @Injectable()
 export class ReadEventByIdService {
   constructor(private readonly eventRepository: EventRepository) {}
 
-  async execute(id: string): Promise<EventOutput> {
+  async execute(id: string) {
     return await this.eventRepository.readById(id);
   }
 }

@@ -17,8 +17,8 @@ import { ReadEventByIdService } from '../services';
 export class ReadEventByIdController {
   constructor(private readonly readEventByIdService: ReadEventByIdService) {}
 
-  @Get(':id')
   @ApiReadEventByIdResponses()
+  @Get(':id')
   async handle(
     @Param('id', new UUIDFormatValidation()) id: string,
     @Res() res: Response,

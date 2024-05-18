@@ -9,7 +9,7 @@ export class EventsFilters {
   local: string;
 
   @IsOptional()
-  type: string;
+  eventType: string;
 
   @IsOptional()
   @IsDateString()
