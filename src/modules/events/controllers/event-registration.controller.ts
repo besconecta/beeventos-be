@@ -9,7 +9,7 @@ import {
 import { Response } from 'express';
 
 import { UserGuard } from '../../../shared/auth/guard';
-import { ApiCreateEventResponses } from '../decorators';
+import { ApiEventRegistrationResponses } from '../decorators';
 import { EventRegistrationInput } from '../input';
 import { EventOutput } from '../output';
 import { EventRegistrationService } from '../services';
@@ -22,7 +22,7 @@ export class EventRegistrationController {
 
   @Post()
   @UseGuards(UserGuard)
-  @ApiCreateEventResponses()
+  @ApiEventRegistrationResponses()
   async handle(
     @Body() input: EventRegistrationInput,
     @Res() res: Response,

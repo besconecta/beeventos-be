@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { ReadAtendeeByIdService } from '../../../modules/atendees/services';
 import { EventsAtendees } from '../entities';
@@ -18,6 +22,10 @@ export class EventRegistrationService {
   async execute(input: EventRegistrationInput): Promise<EventsAtendees> {
     const atendee = await this.readAtendeeByIdService.execute(input.atendeeId);
     const event = await this.readEventByIdService.execute(input.eventId);
+
+    if (!event) {
+      throw new NotFoundException('Evento não encontrado');
+    }
 
     if (event.status === EventStatus.FINISHED) {
       throw new BadRequestException('Este evento já foi finalizado');
