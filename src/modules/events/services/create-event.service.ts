@@ -1,10 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { ReadUserByIdService } from '../../../modules/users/services';
-import { EventStatus } from '../enums';
+import { Events } from '../entities';
 import { ReadEventTypeByIdService } from '../events-types/services';
 import { CreateEventInput } from '../input';
-import { EventOutput } from '../output';
 import { EventRepository } from '../repositories';
 
 @Injectable()
@@ -15,7 +14,7 @@ export class CreateEventService {
     private readonly readEventTypeByIdService: ReadEventTypeByIdService,
   ) {}
 
-  async execute(input: CreateEventInput): Promise<EventOutput> {
+  async execute(input: CreateEventInput): Promise<Events> {
     const user = await this.readUserByIdService.execute(input.userId);
 
     if (!user) {
@@ -30,9 +29,6 @@ export class CreateEventService {
       throw new NotFoundException('Tipo do evento não encontrado');
     }
 
-    return await this.eventRepository.create({
-      ...input,
-      status: EventStatus.IDLE,
-    });
+    return await this.eventRepository.create(input);
   }
 }

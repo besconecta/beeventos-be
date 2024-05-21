@@ -1,12 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { plainToClass } from 'class-transformer';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
+import {
+  PageDto,
+  PageMetaDto,
+  PageOptionsDto,
+} from '../../../shared/pagination';
 import { Events } from '../entities';
-import { CreateEventInput } from '../input';
+import { EventStatus } from '../enums';
+import { CreateEventInput, EventsFilters } from '../input';
 import { UpdateEventInput } from '../input/update-event.input';
 import { EventOutput } from '../output';
+import { eventsArrayMapper } from './helpers/mappers';
+import { queryEvents } from './helpers/query-builder';
 
 @Injectable()
 export class EventRepository {
@@ -15,20 +22,61 @@ export class EventRepository {
     private readonly repository: Repository<Events>,
   ) {}
 
-  async create(input: CreateEventInput): Promise<EventOutput> {
-    const createdEvent = await this.repository.save(input);
+  async create(input: CreateEventInput): Promise<Events> {
+    return await this.repository.save(input);
+  }
 
-    return plainToClass(EventOutput, createdEvent, {
-      excludeExtraneousValues: true,
+  async readAll(filterOptions: EventsFilters): Promise<PageDto<EventOutput>> {
+    const pageOptionsDto = new PageOptionsDto();
+
+    const queryBuilder = this.repository.createQueryBuilder('events');
+
+    const query = queryEvents(filterOptions, queryBuilder);
+    query
+      .orderBy('events.startAt', pageOptionsDto.order)
+      .skip(pageOptionsDto.skip)
+      .take(pageOptionsDto.take);
+
+    const itemCount = await query.getCount();
+    const { entities } = await query.getRawAndEntities();
+
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto,
     });
+
+    return new PageDto(eventsArrayMapper(entities), pageMetaDto);
   }
 
-  async readAll(): Promise<EventOutput[]> {
-    return await this.repository.find();
+  async readById(id: string): Promise<Events> {
+    const event = await this.repository.findOne({ where: { id: id } });
+    return event;
   }
 
-  async readById(id: string): Promise<EventOutput> {
-    return await this.repository.findOne({ where: { id: id } });
+  async readAvaliable(
+    filterOptions: EventsFilters,
+  ): Promise<PageDto<EventOutput>> {
+    const pageOptionsDto = new PageOptionsDto();
+
+    const queryBuilder = this.repository
+      .createQueryBuilder('events')
+      .where('events.status != :finished', { finished: EventStatus.FINISHED });
+
+    const query = queryEvents(filterOptions, queryBuilder);
+    query
+      .orderBy('events.startAt', pageOptionsDto.order)
+      .skip(pageOptionsDto.skip)
+      .take(pageOptionsDto.take);
+
+    const itemCount = await query.getCount();
+    const { entities } = await query.getRawAndEntities();
+
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto,
+    });
+
+    return new PageDto(eventsArrayMapper(entities), pageMetaDto);
   }
 
   async update(id: string, input: UpdateEventInput): Promise<UpdateResult> {

@@ -11,12 +11,28 @@ export class EventOutput {
   id: string;
 
   @ApiProperty({
+    name: 'eventType',
+    description: 'Tipo de evento',
+    example: 'Apresentação acadêmica',
+  })
+  @Expose()
+  eventType: string;
+
+  @ApiProperty({
     name: 'title',
     description: 'Título do evento',
     example: 'Apresentação XYZ',
   })
   @Expose()
   title: string;
+
+  @ApiProperty({
+    name: 'user',
+    description: 'Organizador do evento',
+    example: 'Anakin Skywalker',
+  })
+  @Expose()
+  user: string;
 
   @ApiProperty({
     name: 'local',
@@ -32,7 +48,7 @@ export class EventOutput {
     example: '2024-05-12 20:00:00',
   })
   @Expose()
-  startAt: Date;
+  startAt: Date | string;
 
   @ApiProperty({
     name: 'endAt',
@@ -40,7 +56,7 @@ export class EventOutput {
     example: '2024-05-12 20:30:00',
   })
   @Expose()
-  endAt: Date;
+  endAt: Date | string;
 
   @ApiProperty({
     name: 'createdAt',
@@ -48,7 +64,15 @@ export class EventOutput {
     example: '2024-05-12 20:30:00',
   })
   @Expose()
-  createdAt: Date;
+  createdAt: Date | string;
+
+  @ApiProperty({
+    name: 'status',
+    description: 'Status do evento',
+    example: 'started',
+  })
+  @Expose()
+  status: string;
 
   @ApiProperty({
     name: 'updatedAt',
@@ -56,5 +80,5 @@ export class EventOutput {
     example: '2024-05-12 20:30:00',
   })
   @Expose()
-  updatedAt: Date;
+  updatedAt: Date | string;
 }

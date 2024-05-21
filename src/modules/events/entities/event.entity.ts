@@ -3,14 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Atendees } from '../../../modules/atendees/entities';
 import { Users } from '../../../modules/users/entities';
 import { EventStatus } from '../enums';
 import { EventsTypes } from '../events-types/entities';
@@ -20,15 +18,24 @@ export class Events {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => EventsTypes, (eventType) => eventType.id)
+  @Column({ nullable: false })
   eventTypeId: string;
 
-  @ManyToOne(() => Users, (user) => user.id)
+  @ManyToOne(() => EventsTypes, (eventType) => eventType.events, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'eventTypeId' })
+  eventType: EventsTypes;
+
+  @Column({ nullable: false })
   userId: string;
 
-  @ManyToMany(() => Atendees)
-  @JoinTable()
-  atendees: Atendees[];
+  @ManyToOne(() => Users, (user) => user.events, { nullable: false })
+  user: Users;
+
+  // @ManyToMany(() => Atendees)
+  // @JoinTable()
+  // atendees: Atendees[];
 
   @Column({ length: 100, nullable: false, unique: true })
   title: string;
@@ -42,19 +49,19 @@ export class Events {
   @Column({ length: 255, nullable: false })
   local: string;
 
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamp without time zone' })
   startAt: Date;
 
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamp without time zone' })
   endAt: Date;
 
-  @Column({ nullable: false })
+  @Column({ type: 'enum', enum: EventStatus })
   status: EventStatus;
 
-  @CreateDateColumn({ type: 'timestamptz' })
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
+  @UpdateDateColumn({ type: 'timestamptz', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
   @DeleteDateColumn({ type: 'timestamptz' })

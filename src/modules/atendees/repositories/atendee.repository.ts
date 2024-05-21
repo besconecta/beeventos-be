@@ -20,7 +20,11 @@ export class AtendeeRepository {
       excludeExtraneousValues: true,
     });
   }
-  async findByEmail(atendeeEmail: string): Promise<Atendees> {
+  async readByEmail(atendeeEmail: string): Promise<Atendees> {
     return await this.repository.findOne({ where: { email: atendeeEmail } });
+  }
+
+  async readById(atendeeId: string): Promise<Atendees> {
+    return await this.repository.findOne({ where: { id: atendeeId } });
   }
 }

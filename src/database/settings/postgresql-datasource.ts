@@ -10,8 +10,11 @@ export const postgreSqlDataSource: DataSourceOptions = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   entities: [__dirname + '/../../**/*.entity.{js,ts}'],
-  //synchronize: true,
+  synchronize: true,
   logging: true,
+  extra: {
+    timezone: 'UTC',
+  },
 };
 
 const dataSource = new DataSource(postgreSqlDataSource);
