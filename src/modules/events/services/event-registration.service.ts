@@ -19,9 +19,12 @@ export class EventRegistrationService {
     private readonly readAtendeeByIdService: ReadAtendeeByIdService,
   ) {}
 
-  async execute(input: EventRegistrationInput): Promise<EventsAtendees> {
+  async execute(
+    eventId: string,
+    input: EventRegistrationInput,
+  ): Promise<EventsAtendees> {
     const atendee = await this.readAtendeeByIdService.execute(input.atendeeId);
-    const event = await this.readEventByIdService.execute(input.eventId);
+    const event = await this.readEventByIdService.execute(eventId);
 
     if (!event) {
       throw new NotFoundException('Evento não encontrado');
@@ -31,9 +34,6 @@ export class EventRegistrationService {
       throw new BadRequestException('Este evento já foi finalizado');
     }
 
-    return await this.eventsAtendeesRepository.register({
-      eventId: event.id,
-      atendeeId: atendee.id,
-    });
+    return await this.eventsAtendeesRepository.register(event.id, atendee.id);
   }
 }

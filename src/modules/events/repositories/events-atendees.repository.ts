@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { EventsAtendees } from '../entities';
-import { EventRegistrationInput } from '../input';
 
 @Injectable()
 export class EventsAtendeesRepository {
@@ -12,10 +11,10 @@ export class EventsAtendeesRepository {
     private readonly repository: Repository<EventsAtendees>,
   ) {}
 
-  async register(input: EventRegistrationInput): Promise<EventsAtendees> {
+  async register(eventId: string, atendeeId: string): Promise<EventsAtendees> {
     const eventAtendee = this.repository.create({
-      event: { id: input.eventId },
-      atendee: { id: input.atendeeId },
+      event: { id: eventId },
+      atendee: { id: atendeeId },
     });
 
     return await this.repository.save(eventAtendee);
