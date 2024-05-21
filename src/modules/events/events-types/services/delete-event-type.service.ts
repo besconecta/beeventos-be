@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 
 import { EventTypeRepository } from '../repositories';
@@ -8,12 +8,12 @@ export class DeleteEventTypeService {
   constructor(private readonly eventTypeRepository: EventTypeRepository) {}
 
   async execute(id: string): Promise<DeleteResult> {
-    const eventTypeExists = await this.eventTypeRepository.readById(id);
+    // const eventTypeExists = await this.eventTypeRepository.readById(id);
 
-    if (!eventTypeExists) {
-      throw new NotFoundException('Tipo de evento não encontrado');
-    }
+    // if (!eventTypeExists) {
+    //   throw new NotFoundException('Tipo de evento não encontrado');
+    // }
 
-    return await this.eventTypeRepository.delete(eventTypeExists.id);
+    return await this.eventTypeRepository.delete(id);
   }
 }

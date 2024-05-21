@@ -7,6 +7,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { PageDto } from '../../../shared/pagination';
 import { EventOutput } from '../output';
 
 export function ApiReadEventsResponses() {
@@ -15,7 +16,7 @@ export function ApiReadEventsResponses() {
     ApiOperation({ description: 'Listar todos os eventos' }),
     ApiOkResponse({
       description: 'Eventos listados com sucesso',
-      type: [EventOutput],
+      type: [PageDto<EventOutput>],
     }),
     ApiNoContentResponse({}),
     ApiInternalServerErrorResponse({
