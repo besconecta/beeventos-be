@@ -60,7 +60,7 @@ export class EventRepository {
 
     const queryBuilder = this.repository
       .createQueryBuilder('events')
-      .where({ status: EventStatus.STARTED });
+      .where('events.status != :finished', { finished: EventStatus.FINISHED });
 
     const query = queryEvents(filterOptions, queryBuilder);
     query
