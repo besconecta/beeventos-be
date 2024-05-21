@@ -24,11 +24,13 @@ export function ApiEventRegistrationResponses() {
       description: 'Inscrição realizada com sucesso',
     }),
     ApiConflictResponse({
-      description:
-        'Registro duplicado: Key (field)=(description_field) already exists.',
+      description: 'Participante já está registrado para este evento',
     }),
     ApiNotFoundResponse({
-      description: 'Evento não encontrado',
+      description: 'Registros não encontrados',
+      schema: {
+        example: ['Participante não encontrado', 'Evento não encontrado'],
+      },
     }),
     ApiBadRequestResponse({
       description: 'Este evento já foi finalizado',

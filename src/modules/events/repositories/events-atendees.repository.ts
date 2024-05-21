@@ -19,4 +19,13 @@ export class EventsAtendeesRepository {
 
     return await this.repository.save(eventAtendee);
   }
+
+  async readEventAtendee(
+    eventId: string,
+    atendeeId: string,
+  ): Promise<EventsAtendees> {
+    return await this.repository.findOne({
+      where: { event: { id: eventId }, atendee: { id: atendeeId } },
+    });
+  }
 }

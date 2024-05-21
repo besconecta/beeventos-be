@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -30,8 +31,24 @@ export class EventRegistrationService {
       throw new NotFoundException('Evento não encontrado');
     }
 
+    if (!atendee) {
+      throw new NotFoundException('Participante não encontrado');
+    }
+
     if (event.status === EventStatus.FINISHED) {
       throw new BadRequestException('Este evento já foi finalizado');
+    }
+
+    const existingRegistration =
+      await this.eventsAtendeesRepository.readEventAtendee(
+        event.id,
+        atendee.id,
+      );
+
+    if (existingRegistration) {
+      throw new ConflictException(
+        'Participante já está registrado para este evento',
+      );
     }
 
     return await this.eventsAtendeesRepository.register(event.id, atendee.id);
