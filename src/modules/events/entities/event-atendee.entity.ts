@@ -4,6 +4,7 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -11,14 +12,15 @@ import { Atendees } from '../../../modules/atendees/entities';
 import { Events } from './event.entity';
 
 @Entity()
+@Unique(['event', 'atendee'])
 export class EventsAtendees {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Events)
+  @ManyToOne(() => Events, { nullable: false })
   event: Events;
 
-  @ManyToOne(() => Atendees)
+  @ManyToOne(() => Atendees, { nullable: false })
   atendee: Atendees;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })

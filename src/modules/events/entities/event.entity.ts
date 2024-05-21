@@ -4,14 +4,11 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Atendees } from '../../../modules/atendees/entities';
 import { Users } from '../../../modules/users/entities';
 import { EventStatus } from '../enums';
 import { EventsTypes } from '../events-types/entities';
@@ -36,9 +33,9 @@ export class Events {
   @ManyToOne(() => Users, (user) => user.events, { nullable: false })
   user: Users;
 
-  @ManyToMany(() => Atendees)
-  @JoinTable()
-  atendees: Atendees[];
+  // @ManyToMany(() => Atendees)
+  // @JoinTable()
+  // atendees: Atendees[];
 
   @Column({ length: 100, nullable: false, unique: true })
   title: string;

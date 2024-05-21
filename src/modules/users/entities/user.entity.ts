@@ -1,4 +1,3 @@
-import { Events } from 'src/modules/events/entities';
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Events } from '../../../modules/events/entities';
 import { AccountRole } from '../../../shared/enums';
 
 @Entity()

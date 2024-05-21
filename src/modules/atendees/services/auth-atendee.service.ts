@@ -18,7 +18,7 @@ export class AuthAtendeeService {
   ) {}
 
   async execute(input: AuthAtendeeInput): Promise<string> {
-    const atendee = await this.atendeeRepository.findByEmail(input.email);
+    const atendee = await this.atendeeRepository.readByEmail(input.email);
 
     if (!atendee) {
       throw new NotFoundException(`E-mail não encontrado`);
