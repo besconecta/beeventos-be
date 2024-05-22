@@ -1,6 +1,7 @@
 import { Body, Controller, HttpStatus, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
+import { ApiEvaluationResponses } from '../decorators';
 import { CreateEvaluationInput } from '../input';
 import { CreateEvaluationService } from '../services';
 
@@ -10,7 +11,8 @@ export class CreateEvaluationController {
     private readonly createEvaluationService: CreateEvaluationService,
   ) {}
 
-  @Post(':id/evaluate')
+  @Post(':id/evaluation')
+  @ApiEvaluationResponses()
   async handle(
     @Param('id') id: string,
     @Body() input: CreateEvaluationInput,
