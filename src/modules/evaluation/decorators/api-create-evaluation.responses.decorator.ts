@@ -11,7 +11,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-export function ApiEvaluationResponses() {
+export function ApiCreateEvaluationResponses() {
   return applyDecorators(
     ApiTags('Avaliação de eventos'),
     ApiOperation({ description: 'Avaliar um evento' }),

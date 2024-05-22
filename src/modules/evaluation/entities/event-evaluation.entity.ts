@@ -9,12 +9,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Atendees } from '../../../modules/atendees/entities';
-import { Events } from '../../../modules/events/entities';
+import { Atendees } from '../../atendees/entities';
+import { Events } from '../../events/entities';
 
 @Entity()
 @Unique(['event', 'atendee'])
-export class Evaluations {
+export class EventsEvaluations {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

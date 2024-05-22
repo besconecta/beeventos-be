@@ -1,1 +1,1 @@
-export * from './evaluation.entity';
+export * from './event-evaluation.entity';

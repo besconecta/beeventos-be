@@ -2,20 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Evaluations } from '../entities';
+import { EventsEvaluations } from '../entities';
 import { CreateEvaluationInput } from '../input';
 
 @Injectable()
 export class EvaluationRepository {
   constructor(
-    @InjectRepository(Evaluations)
-    private readonly repository: Repository<Evaluations>,
+    @InjectRepository(EventsEvaluations)
+    private readonly repository: Repository<EventsEvaluations>,
   ) {}
 
   async evaluate(
     eventId: string,
     input: CreateEvaluationInput,
-  ): Promise<Evaluations> {
+  ): Promise<EventsEvaluations> {
     const eventEvaluation = this.repository.create({
       ...input,
       event: { id: eventId },
@@ -27,7 +27,7 @@ export class EvaluationRepository {
   async readAtendeeEvaluation(
     eventId: string,
     atendeeId: string,
-  ): Promise<Evaluations> {
+  ): Promise<EventsEvaluations> {
     return await this.repository.findOne({
       where: { event: { id: eventId }, atendee: { id: atendeeId } },
     });
