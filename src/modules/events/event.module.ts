@@ -55,5 +55,6 @@ import {
     DeleteEventController,
     EventRegistrationController,
   ],
+  exports: [ReadEventByIdService],
 })
 export class EventModule {}
