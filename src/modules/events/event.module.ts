@@ -7,19 +7,17 @@ import { UserModule } from '../users/user.module';
 import {
   CreateEventController,
   DeleteEventController,
-  EventRegistrationController,
   ReadAvaliableEventsController,
   ReadEventByIdController,
   ReadEventsController,
 } from './controllers';
 import { UpdateEventController } from './controllers/update-event.controller';
-import { Events, EventsAtendees } from './entities';
+import { Events } from './entities';
 import { EventTypeModule } from './events-types/event-type.module';
-import { EventRepository, EventsAtendeesRepository } from './repositories';
+import { EventRepository } from './repositories';
 import {
   CreateEventService,
   DeleteEventService,
-  EventRegistrationService,
   ReadAvaliableEventsService,
   ReadEventByIdService,
   ReadEventsService,
@@ -28,14 +26,12 @@ import {
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Events, EventsAtendees]),
+    TypeOrmModule.forFeature([Events]),
     EventTypeModule,
     UserModule,
     AtendeeModule,
   ],
   providers: [
-    EventRegistrationService,
-    EventsAtendeesRepository,
     AuthService,
     EventRepository,
     CreateEventService,
@@ -53,7 +49,6 @@ import {
     ReadEventByIdController,
     UpdateEventController,
     DeleteEventController,
-    EventRegistrationController,
   ],
   exports: [ReadEventByIdService],
 })

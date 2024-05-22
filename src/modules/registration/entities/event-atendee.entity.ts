@@ -8,8 +8,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Atendees } from '../../../modules/atendees/entities';
-import { Events } from './event.entity';
+import { Atendees } from '../../atendees/entities';
+import { Events } from '../../events/entities/event.entity';
 
 @Entity()
 @Unique(['event', 'atendee'])

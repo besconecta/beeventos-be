@@ -5,12 +5,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { ReadAtendeeByIdService } from '../../../modules/atendees/services';
+import { ReadAtendeeByIdService } from '../../atendees/services';
+import { EventStatus } from '../../events/enums';
+import { ReadEventByIdService } from '../../events/services/read-event-by-id.service';
 import { EventsAtendees } from '../entities';
-import { EventStatus } from '../enums';
 import { EventRegistrationInput } from '../input';
 import { EventsAtendeesRepository } from '../repositories';
-import { ReadEventByIdService } from './read-event-by-id.service';
 
 @Injectable()
 export class EventRegistrationService {
