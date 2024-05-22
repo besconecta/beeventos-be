@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { AuthModule } from '../../shared/auth/auth.module';
 import { AtendeeModule } from '../atendees/atendee.module';
 import { EventModule } from '../events/event.module';
 import { CreateEvaluationController } from './controller';
@@ -11,6 +12,7 @@ import { CreateEvaluationService } from './services';
 @Module({
   imports: [
     TypeOrmModule.forFeature([EventsEvaluations]),
+    AuthModule,
     AtendeeModule,
     EventModule,
   ],

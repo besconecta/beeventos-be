@@ -1,6 +1,15 @@
-import { Body, Controller, HttpStatus, Param, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 
+import { AtendeeGuard } from '../../../shared/auth/guard';
 import { ApiCreateEvaluationResponses } from '../decorators';
 import { CreateEvaluationInput } from '../input';
 import { CreateEvaluationService } from '../services';
@@ -12,6 +21,7 @@ export class CreateEvaluationController {
   ) {}
 
   @Post(':id/evaluations')
+  @UseGuards(AtendeeGuard)
   @ApiCreateEvaluationResponses()
   async handle(
     @Param('id') id: string,

@@ -19,8 +19,8 @@ export class DeleteEventController {
   constructor(private readonly deleteEventService: DeleteEventService) {}
 
   @Delete(':id')
-  @ApiDeleteEventResponses()
   @UseGuards(UserGuard)
+  @ApiDeleteEventResponses()
   async handle(
     @Param('id', new UUIDFormatValidation()) id: string,
     @Res() res: Response,

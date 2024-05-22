@@ -21,8 +21,8 @@ export class DeleteEventTypeController {
   ) {}
 
   @Delete(':id')
-  @ApiDeleteEventTypeResponses()
   @UseGuards(UserGuard)
+  @ApiDeleteEventTypeResponses()
   async handle(
     @Param('id', new UUIDFormatValidation()) id: string,
     @Res() res: Response,

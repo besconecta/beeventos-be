@@ -22,8 +22,8 @@ export class UpdateEventController {
   constructor(private readonly updateEventService: UpdateEventService) {}
 
   @Patch(':id')
-  @ApiUpdateEventResponses()
   @UseGuards(UserGuard)
+  @ApiUpdateEventResponses()
   async handle(
     @Param('id', new UUIDFormatValidation()) id: string,
     @Body() input: UpdateEventInput,

@@ -24,8 +24,8 @@ export class UpdateEventTypeController {
   ) {}
 
   @Patch(':id')
-  @ApiUpdateEventTypeResponses()
   @UseGuards(UserGuard)
+  @ApiUpdateEventTypeResponses()
   async handle(
     @Param('id', new UUIDFormatValidation()) id: string,
     @Body() input: UpdateEventTypeInput,
