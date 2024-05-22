@@ -13,7 +13,7 @@ import {
 
 export function ApiCreateEvaluationResponses() {
   return applyDecorators(
-    ApiTags('Avaliação de eventos'),
+    ApiTags('Avaliação de evento'),
     ApiOperation({ description: 'Avaliar um evento' }),
     ApiParam({
       name: 'id',

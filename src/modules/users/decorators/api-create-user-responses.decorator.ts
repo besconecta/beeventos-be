@@ -12,7 +12,7 @@ import { UserAccountOutput } from '../output';
 
 export function ApiCreateUserResponses() {
   return applyDecorators(
-    ApiTags('Organizadores de eventos'),
+    ApiTags('Organizadores'),
     ApiOperation({
       description: 'Cria conta de usuário organizador de eventos',
     }),

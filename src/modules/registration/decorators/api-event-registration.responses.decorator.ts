@@ -13,7 +13,7 @@ import {
 
 export function ApiEventRegistrationResponses() {
   return applyDecorators(
-    ApiTags('Gestão de eventos'),
+    ApiTags('Inscrição em evento'),
     ApiOperation({ description: 'Registrar-se em evento' }),
     ApiParam({
       name: 'id',

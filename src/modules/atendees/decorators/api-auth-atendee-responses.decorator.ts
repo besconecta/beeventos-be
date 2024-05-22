@@ -12,7 +12,7 @@ import { AuthAtendeeOutput } from '../output';
 
 export function ApiAuthAtendeeResponses() {
   return applyDecorators(
-    ApiTags('Participantes de eventos'),
+    ApiTags('Participantes'),
     ApiOperation({ description: 'Login de participante de eventos' }),
     ApiOkResponse({
       description: 'Login efetuado com sucesso',

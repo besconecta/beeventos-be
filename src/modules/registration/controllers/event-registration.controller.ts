@@ -21,7 +21,7 @@ export class EventRegistrationController {
     private readonly eventRegistrationService: EventRegistrationService,
   ) {}
 
-  @Post(':id/registration')
+  @Post(':id/registrations')
   @UseGuards(UserGuard)
   @ApiEventRegistrationResponses()
   async handle(

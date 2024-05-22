@@ -12,7 +12,7 @@ import { AtendeeAccountOutput } from '../output';
 
 export function ApiCreateAtendeeResponses() {
   return applyDecorators(
-    ApiTags('Participantes de eventos'),
+    ApiTags('Participantes'),
     ApiOperation({
       description: 'Cria conta de participante organizador de eventos',
     }),

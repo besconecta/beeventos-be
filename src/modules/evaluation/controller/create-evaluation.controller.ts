@@ -11,7 +11,7 @@ export class CreateEvaluationController {
     private readonly createEvaluationService: CreateEvaluationService,
   ) {}
 
-  @Post(':id/evaluation')
+  @Post(':id/evaluations')
   @ApiCreateEvaluationResponses()
   async handle(
     @Param('id') id: string,
