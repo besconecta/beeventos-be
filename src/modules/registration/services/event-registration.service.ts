@@ -8,7 +8,7 @@ import {
 import { ReadAtendeeByIdService } from '../../atendees/services';
 import { EventStatus } from '../../events/enums';
 import { ReadEventByIdService } from '../../events/services/read-event-by-id.service';
-import { EventsAtendees } from '../entities';
+import { EventsRegistrations } from '../entities';
 import { EventRegistrationInput } from '../input';
 import { EventsAtendeesRepository } from '../repositories';
 
@@ -23,7 +23,7 @@ export class EventRegistrationService {
   async execute(
     eventId: string,
     input: EventRegistrationInput,
-  ): Promise<EventsAtendees> {
+  ): Promise<EventsRegistrations> {
     const atendee = await this.readAtendeeByIdService.execute(input.atendeeId);
     const event = await this.readEventByIdService.execute(eventId);
 

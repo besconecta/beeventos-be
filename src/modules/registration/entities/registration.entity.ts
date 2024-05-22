@@ -13,7 +13,7 @@ import { Events } from '../../events/entities/event.entity';
 
 @Entity()
 @Unique(['event', 'atendee'])
-export class EventsAtendees {
+export class EventsRegistrations {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

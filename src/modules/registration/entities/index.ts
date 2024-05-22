@@ -1,1 +1,1 @@
-export * from './event-atendee.entity';
+export * from './registration.entity';
