@@ -26,7 +26,10 @@ export function ApiCreateUserResponses() {
         'Registro duplicado: Key (field)=(description_field) already exists.',
     }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }

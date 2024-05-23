@@ -41,7 +41,10 @@ export function ApiUpdateEventResponses() {
     ApiNotFoundResponse({ description: 'Evento não encontrado' }),
     ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }

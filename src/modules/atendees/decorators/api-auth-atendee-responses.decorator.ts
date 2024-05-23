@@ -18,10 +18,23 @@ export function ApiAuthAtendeeResponses() {
       description: 'Login efetuado com sucesso',
       type: AuthAtendeeOutput,
     }),
-    ApiNotFoundResponse({ description: 'E-mail não encontrado' }),
-    ApiUnauthorizedResponse({ description: 'Senha incorreta' }),
+    ApiNotFoundResponse({
+      description: 'E-mail não encontrado',
+      content: {
+        type: { example: 'E-mail anakin@tatooine.com não encontrado' },
+      },
+    }),
+    ApiUnauthorizedResponse({
+      description: 'Senha incorreta',
+      content: {
+        type: { example: 'Senha incorreta' },
+      },
+    }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }

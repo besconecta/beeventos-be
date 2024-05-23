@@ -21,7 +21,10 @@ export function ApiAuthUserResponses() {
     ApiNotFoundResponse({ description: 'E-mail não encontrado' }),
     ApiUnauthorizedResponse({ description: 'Senha incorreta' }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }

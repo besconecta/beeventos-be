@@ -34,7 +34,10 @@ export function ApiReadEventByIdResponses() {
     }),
     ApiNotFoundResponse({ description: 'Evento não encontrado ' }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }
