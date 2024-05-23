@@ -24,7 +24,7 @@ export class DeleteEventTypeController {
   @UseGuards(UserGuard)
   @ApiDeleteEventTypeResponses()
   async handle(
-    @Param('id', new UUIDFormatValidation()) id: string,
+    @Param('id', new UUIDFormatValidation('evento')) id: string,
     @Res() res: Response,
   ): Promise<Response<EventTypeOutput>> {
     const data = await this.deleteEventTypeService.execute(id);
