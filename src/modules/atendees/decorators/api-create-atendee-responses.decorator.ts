@@ -8,6 +8,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { ExceptionsOutput } from '../../../shared/output';
 import { AtendeeAccountOutput } from '../output';
 
 export function ApiCreateAtendeeResponses() {
@@ -20,16 +21,17 @@ export function ApiCreateAtendeeResponses() {
       description: 'Conta de participante criada com sucesso',
       type: AtendeeAccountOutput,
     }),
-    ApiBadRequestResponse({ description: 'As senhas não coincidem' }),
+    ApiBadRequestResponse({
+      description: 'As senhas não coincidem',
+      type: ExceptionsOutput,
+    }),
     ApiConflictResponse({
-      description:
-        'Registro duplicado: Key (field)=(description_field) already exists.',
+      description: 'Registro duplicado',
+      type: ExceptionsOutput,
     }),
     ApiInternalServerErrorResponse({
       description: 'Erro interno do servidor',
-      content: {
-        type: { example: 'Houve um erro interno ao processar solicitação' },
-      },
+      type: ExceptionsOutput,
     }),
   );
 }

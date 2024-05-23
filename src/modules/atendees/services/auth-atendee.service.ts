@@ -21,7 +21,7 @@ export class AuthAtendeeService {
     const atendee = await this.atendeeRepository.readByEmail(input.email);
 
     if (!atendee) {
-      throw new NotFoundException(`E-mail não encontrado`);
+      throw new NotFoundException(`E-mail ${input.email} não encontrado`);
     }
 
     const passwordMatch = await this.bcryptService.comparePassword(
