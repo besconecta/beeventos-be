@@ -26,9 +26,6 @@ export class CreateEventController {
     @Res() res: Response,
   ): Promise<Response<EventOutput>> {
     const data = await this.createEventService.execute(input);
-    return res.status(HttpStatus.CREATED).json({
-      message: 'Evento criado com sucesso',
-      data,
-    });
+    return res.status(HttpStatus.CREATED).json({ data });
   }
 }

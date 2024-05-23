@@ -7,6 +7,8 @@ export const eventsArrayMapper = (data: Events[]): EventOutput[] => {
       id: event.id,
       eventType: event.eventType ? event.eventType.description : null,
       title: event.title,
+      about: event.about,
+      bannerUrl: event.bannerUrl,
       user: `${event.user.firstname} ${event.user.lastname}`,
       local: event.local,
       startAt: event.startAt.toLocaleString('pt-BR'),

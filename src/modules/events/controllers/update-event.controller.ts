@@ -25,19 +25,15 @@ export class UpdateEventController {
   @UseGuards(UserGuard)
   @ApiUpdateEventResponses()
   async handle(
-    @Param('id', new UUIDFormatValidation()) id: string,
+    @Param('id', new UUIDFormatValidation('evento')) id: string,
     @Body() input: UpdateEventInput,
     @Res() res: Response,
   ): Promise<Response<EventOutput>> {
     UpdateInputValidator.validate(input);
 
     const data = await this.updateEventService.execute(id, input);
-
-    if (data.affected === 0) {
-      return res.status(HttpStatus.NO_CONTENT).json({});
-    }
     return res.status(HttpStatus.OK).json({
-      message: 'Evento atualizado com sucesso',
+      data,
     });
   }
 }

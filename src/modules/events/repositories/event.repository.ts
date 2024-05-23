@@ -12,7 +12,7 @@ import { EventStatus } from '../enums';
 import { CreateEventInput, EventsFilters } from '../input';
 import { UpdateEventInput } from '../input/update-event.input';
 import { EventOutput } from '../output';
-import { eventsArrayMapper } from './helpers/mappers';
+import { eventsArrayMapper, eventsMapper } from './helpers/mappers';
 import { queryEvents } from './helpers/query-builder';
 
 @Injectable()
@@ -48,9 +48,15 @@ export class EventRepository {
     return new PageDto(eventsArrayMapper(entities), pageMetaDto);
   }
 
-  async readById(id: string): Promise<Events> {
-    const event = await this.repository.findOne({ where: { id: id } });
-    return event;
+  async readById(id: string): Promise<any> {
+    const queryBuilder = this.repository
+      .createQueryBuilder('events')
+      .leftJoinAndSelect('events.eventType', 'eventType')
+      .leftJoinAndSelect('events.user', 'user')
+      .where({ id: id });
+
+    const event = await queryBuilder.getOne();
+    return eventsMapper(event);
   }
 
   async readAvaliable(

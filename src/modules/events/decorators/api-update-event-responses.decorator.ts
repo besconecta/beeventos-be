@@ -1,5 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiConflictResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
@@ -9,6 +10,8 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+
+import { EventOutput } from '../output';
 
 export function ApiUpdateEventResponses() {
   return applyDecorators(
@@ -21,6 +24,15 @@ export function ApiUpdateEventResponses() {
     }),
     ApiOkResponse({
       description: 'Evento atualizado com sucesso',
+      type: EventOutput,
+    }),
+    ApiBadRequestResponse({
+      description: 'Parâmetro inválido',
+      content: {
+        type: {
+          example: 'ID de evento com formato inválido',
+        },
+      },
     }),
     ApiConflictResponse({
       description:

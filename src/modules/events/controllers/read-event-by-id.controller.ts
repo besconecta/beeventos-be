@@ -23,7 +23,7 @@ export class ReadEventByIdController {
   @UseGuards(AuthGuard)
   @ApiReadEventByIdResponses()
   async handle(
-    @Param('id', new UUIDFormatValidation()) id: string,
+    @Param('id', new UUIDFormatValidation('evento')) id: string,
     @Res() res: Response,
   ): Promise<Response<EventOutput>> {
     const data = await this.readEventByIdService.execute(id);
