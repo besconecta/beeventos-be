@@ -8,7 +8,7 @@ export class CreateEvaluationInput {
     example: '5aaca898-fe80-46f7-8530-bbcb837a2f49',
   })
   @IsUUID(4, { message: 'ID com formato inválido' })
-  @IsNotEmpty({ message: 'ID do participante é obrigatório' })
+  @IsOptional()
   atendeeId: string;
 
   @ApiProperty({
