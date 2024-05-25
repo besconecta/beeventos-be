@@ -24,6 +24,18 @@ export class CreateEvaluationService {
     eventId: string,
     input: CreateEvaluationInput,
   ): Promise<EventsEvaluations> {
+    if (!input.anonymous && !input.atendeeId) {
+      throw new BadRequestException(
+        'Informe o ID do participante ou crie uma avaliação anônima',
+      );
+    }
+
+    if (input.anonymous && input.atendeeId) {
+      throw new BadRequestException(
+        'ID do participante não é necessário para criar uma avaliação anônima',
+      );
+    }
+
     const atendee = await this.readAtendeeByIdService.execute(input.atendeeId);
     const event = await this.readEventByIdService.execute(eventId);
 

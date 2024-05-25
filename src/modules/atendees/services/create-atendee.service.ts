@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { BcryptService } from '../../../shared/auth/services/bcrypt.service';
+import { AccountRole } from '../../../shared/enums';
 import { CreateAtendeeInput } from '../input';
 import { AtendeeAccountOutput } from '../output';
 import { AtendeeRepository } from '../repositories';
@@ -24,6 +25,7 @@ export class CreateAtendeeService {
     return await this.atendeeRepository.create({
       ...input,
       password: hashedPassword,
+      role: AccountRole.Atendee,
     });
   }
 }

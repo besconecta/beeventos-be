@@ -11,6 +11,12 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
+import {
+  ConflictErrorOutput,
+  InternalServerErrorOutput,
+  UnauthorizedErrorOutput,
+} from '../../../shared/exceptions/output';
+
 export function ApiCreateEvaluationResponses() {
   return applyDecorators(
     ApiTags('Avaliação de evento'),
@@ -23,24 +29,52 @@ export function ApiCreateEvaluationResponses() {
     ApiCreatedResponse({
       description: 'Avaliação realizada com sucesso',
     }),
-    ApiConflictResponse({
-      description: 'Participante já avaliou este evento',
-    }),
+
     ApiNotFoundResponse({
       description: 'Registros não encontrados',
       schema: {
-        example: ['Participante não encontrado', 'Evento não encontrado'],
+        type: 'object',
+        properties: {
+          statusCode: { type: 'number', example: 404 },
+          timestamp: { type: 'date', example: '14:00:00 PM' },
+          message: {
+            type: 'string',
+            example: ['Participante não encontrado', 'Evento não encontrado'],
+          },
+        },
       },
     }),
     ApiBadRequestResponse({
-      description: 'Este evento ainda não foi finalizado',
+      description: 'Erros de validação',
+      schema: {
+        type: 'object',
+        properties: {
+          statusCode: { type: 'number', example: 400 },
+          timestamp: { type: 'date', example: '14:00:00 PM' },
+          message: {
+            type: 'string',
+            example: [
+              'Este evento ainda não foi finalizado, Informe o ID do participante ou crie uma avaliação anônima',
+              'ID do participante não é necessário para criar uma avaliação anônima',
+              'Este evento ainda não foi finalizado',
+            ],
+          },
+        },
+      },
     }),
-    ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
+    ApiUnauthorizedResponse({
+      description: 'Acesso negado',
+      type: UnauthorizedErrorOutput,
+    }),
+
+    ApiConflictResponse({
+      description: 'Participante já avaliou este evento',
+      type: ConflictErrorOutput,
+    }),
+
     ApiInternalServerErrorResponse({
       description: 'Erro interno do servidor',
-      content: {
-        type: { example: 'Houve um erro interno ao processar solicitação' },
-      },
+      type: InternalServerErrorOutput,
     }),
   );
 }
