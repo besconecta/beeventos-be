@@ -21,8 +21,8 @@ export class EventsEvaluations {
   @ManyToOne(() => Events, { nullable: false })
   event: Events;
 
-  @ManyToOne(() => Atendees, { nullable: false })
-  atendee: Atendees;
+  @ManyToOne(() => Atendees, { nullable: true })
+  atendee?: Atendees;
 
   @Column()
   rating: number;

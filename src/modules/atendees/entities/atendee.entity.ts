@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import { Events } from '../../../modules/events/entities/event.entity';
+import { AccountRole } from '../../../shared/enums';
 
 @Entity()
 export class Atendees {
@@ -29,6 +30,9 @@ export class Atendees {
 
   @Column({ nullable: false, length: 255 })
   password: string;
+
+  @Column({ nullable: false, type: 'enum', enum: AccountRole })
+  role: AccountRole;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

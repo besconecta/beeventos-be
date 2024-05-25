@@ -6,7 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
-import { ReadUserByIdService } from '../../../modules/users/services';
+import { ReadAtendeeByIdService } from '../../../modules/atendees/services';
 import { AccountRole } from '../../enums';
 import { AuthService } from '../services/auth.service';
 
@@ -14,7 +14,7 @@ import { AuthService } from '../services/auth.service';
 export class AtendeeGuard implements CanActivate {
   constructor(
     private readonly authService: AuthService,
-    private readonly readUserByIdService: ReadUserByIdService,
+    private readonly readAtendeeByIdService: ReadAtendeeByIdService,
   ) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -30,15 +30,18 @@ export class AtendeeGuard implements CanActivate {
 
     request.decodedData = resp;
 
-    const activeUser = await this.readUserByIdService.execute(
-      request.decodedData.sub,
+    const activeUser = await this.readAtendeeByIdService.execute(
+      request.decodedData.sub.id,
     );
+
+    console.log('Sub', request.decodedData.sub.id);
+    console.log('AtendeeGuard', activeUser);
 
     if (!activeUser) {
       throw new UnauthorizedException('Usuário sem permissão');
     }
 
-    if (request.decodedData.role !== AccountRole.Atendee) {
+    if (activeUser.role !== AccountRole.Atendee) {
       throw new UnauthorizedException('Usuário sem permissão');
     }
 
