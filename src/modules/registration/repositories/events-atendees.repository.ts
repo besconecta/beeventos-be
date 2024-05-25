@@ -2,16 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { EventsAtendees } from '../entities';
+import { EventsRegistrations } from '../entities';
 
 @Injectable()
 export class EventsAtendeesRepository {
   constructor(
-    @InjectRepository(EventsAtendees)
-    private readonly repository: Repository<EventsAtendees>,
+    @InjectRepository(EventsRegistrations)
+    private readonly repository: Repository<EventsRegistrations>,
   ) {}
 
-  async register(eventId: string, atendeeId: string): Promise<EventsAtendees> {
+  async register(
+    eventId: string,
+    atendeeId: string,
+  ): Promise<EventsRegistrations> {
     const eventAtendee = this.repository.create({
       event: { id: eventId },
       atendee: { id: atendeeId },
@@ -23,7 +26,7 @@ export class EventsAtendeesRepository {
   async readEventAtendee(
     eventId: string,
     atendeeId: string,
-  ): Promise<EventsAtendees> {
+  ): Promise<EventsRegistrations> {
     return await this.repository.findOne({
       where: { event: { id: eventId }, atendee: { id: atendeeId } },
     });

@@ -1,5 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -8,6 +9,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { InternalServerErrorOutput } from '../../../shared/exceptions/output';
 import { EventOutput } from '../output';
 
 export function ApiReadEventByIdResponses() {
@@ -23,9 +25,19 @@ export function ApiReadEventByIdResponses() {
       description: 'Evento listado com sucesso',
       type: EventOutput,
     }),
+    ApiBadRequestResponse({
+      description: 'Parâmetro inválido',
+      content: {
+        type: {
+          example: 'ID de evento com formato inválido',
+        },
+      },
+    }),
     ApiNotFoundResponse({ description: 'Evento não encontrado ' }),
+
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      type: InternalServerErrorOutput,
     }),
   );
 }

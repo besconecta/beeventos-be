@@ -9,8 +9,8 @@ export class CreateEventInput {
     description: 'Tipo de evento',
     example: '5aaca898-fe80-46f7-8530-bbcb837a2f49',
   })
-  @IsUUID(4, { message: 'ID com formato inválido' })
-  @IsNotEmpty({ message: 'Tipo de evento é obrigatório' })
+  @IsUUID(4, { message: 'ID do evento com formato inválido' })
+  @IsNotEmpty({ message: 'ID do tipo de evento é obrigatório' })
   eventTypeId: string;
 
   @ApiProperty({
@@ -18,8 +18,8 @@ export class CreateEventInput {
     description: 'ID do usuário',
     example: '0186d0f7-28b3-4826-80cb-2e8134e9b2bf',
   })
-  @IsUUID(4, { message: 'ID com formato inválido' })
-  @IsNotEmpty({ message: 'Usuário é obrigatório' })
+  @IsUUID(4, { message: 'ID do usuário com formato inválido' })
+  @IsNotEmpty({ message: 'ID do usuário é obrigatório' })
   userId: string;
 
   @ApiProperty({
@@ -38,7 +38,7 @@ export class CreateEventInput {
     description: 'Sobre o evento',
     example: 'Evento sobre temas diversos',
   })
-  @IsNotEmpty({ message: 'Informação sobre o evento é obrigatória' })
+  @IsNotEmpty({ message: 'Descrição do evento é obrigatória' })
   about: string;
 
   @ApiProperty({
@@ -61,7 +61,7 @@ export class CreateEventInput {
     example: 'idle | started | finished',
   })
   @IsEnum(EventStatus, {
-    message: 'Status deve ser: idle, started ou finished',
+    message: 'Status do evento deve ser: idle, started ou finished',
   })
   @IsNotEmpty({ message: 'Status do evento é obrigatório' })
   status: EventStatus;

@@ -12,7 +12,7 @@ import { UserAccountOutput } from '../output';
 
 export function ApiCreateUserResponses() {
   return applyDecorators(
-    ApiTags('Organizadores de eventos'),
+    ApiTags('Organizadores'),
     ApiOperation({
       description: 'Cria conta de usuário organizador de eventos',
     }),
@@ -26,7 +26,10 @@ export function ApiCreateUserResponses() {
         'Registro duplicado: Key (field)=(description_field) already exists.',
     }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }

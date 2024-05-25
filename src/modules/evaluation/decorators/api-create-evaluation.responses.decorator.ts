@@ -11,20 +11,20 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-export function ApiEventRegistrationResponses() {
+export function ApiCreateEvaluationResponses() {
   return applyDecorators(
-    ApiTags('Gestão de eventos'),
-    ApiOperation({ description: 'Registrar-se em evento' }),
+    ApiTags('Avaliação de evento'),
+    ApiOperation({ description: 'Avaliar um evento' }),
     ApiParam({
       name: 'id',
       description: 'ID do evento',
       example: '65c02e73-0df2-4eb9-9fdf-4442f0219c96',
     }),
     ApiCreatedResponse({
-      description: 'Inscrição realizada com sucesso',
+      description: 'Avaliação realizada com sucesso',
     }),
     ApiConflictResponse({
-      description: 'Participante já está registrado para este evento',
+      description: 'Participante já avaliou este evento',
     }),
     ApiNotFoundResponse({
       description: 'Registros não encontrados',
@@ -33,11 +33,14 @@ export function ApiEventRegistrationResponses() {
       },
     }),
     ApiBadRequestResponse({
-      description: 'Este evento já foi finalizado',
+      description: 'Este evento ainda não foi finalizado',
     }),
     ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }

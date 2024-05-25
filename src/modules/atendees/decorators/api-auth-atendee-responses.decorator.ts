@@ -8,20 +8,43 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
+import {
+  InternalServerErrorOutput,
+  UnauthorizedErrorOutput,
+} from '../../../shared/exceptions/output';
 import { AuthAtendeeOutput } from '../output';
 
 export function ApiAuthAtendeeResponses() {
   return applyDecorators(
-    ApiTags('Participantes de eventos'),
+    ApiTags('Participantes'),
     ApiOperation({ description: 'Login de participante de eventos' }),
     ApiOkResponse({
       description: 'Login efetuado com sucesso',
       type: AuthAtendeeOutput,
     }),
-    ApiNotFoundResponse({ description: 'E-mail não encontrado' }),
-    ApiUnauthorizedResponse({ description: 'Senha incorreta' }),
+    ApiNotFoundResponse({
+      description: 'E-mail não encontrado',
+      schema: {
+        type: 'object',
+        properties: {
+          statusCode: { type: 'number', example: 404 },
+          timestamp: { type: 'date', example: '14:00:00 PM' },
+          message: {
+            type: 'string',
+            example: 'E-mail anakin@tatooine.com não encontrado',
+          },
+        },
+      },
+    }),
+
+    ApiUnauthorizedResponse({
+      description: 'Acesso negado',
+      type: UnauthorizedErrorOutput,
+    }),
+
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      type: InternalServerErrorOutput,
     }),
   );
 }

@@ -1,6 +1,14 @@
-import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Query,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Response } from 'express';
 
+import { AuthGuard } from '../../../shared/auth/guard';
 import { ApiReadEventsResponses } from '../decorators';
 import { EventsFilters } from '../input';
 import { EventOutput } from '../output';
@@ -11,6 +19,7 @@ export class ReadEventsController {
   constructor(private readonly readEventsService: ReadEventsService) {}
 
   @Get()
+  @UseGuards(AuthGuard)
   @ApiReadEventsResponses()
   async handle(
     @Query() filterOptions: EventsFilters,
