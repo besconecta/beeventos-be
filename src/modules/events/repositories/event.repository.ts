@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { plainToClass } from 'class-transformer';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 import {
@@ -11,7 +12,7 @@ import { Events } from '../entities';
 import { EventStatus } from '../enums';
 import { CreateEventInput, EventsFilters } from '../input';
 import { UpdateEventInput } from '../input/update-event.input';
-import { EventOutput } from '../output';
+import { CreateEventOutput, EventOutput } from '../output';
 import { eventsArrayMapper, eventsMapper } from './helpers/mappers';
 import { queryEvents } from './helpers/query-builder';
 
@@ -22,8 +23,11 @@ export class EventRepository {
     private readonly repository: Repository<Events>,
   ) {}
 
-  async create(input: CreateEventInput): Promise<Events> {
-    return await this.repository.save(input);
+  async create(input: CreateEventInput): Promise<CreateEventOutput> {
+    const createdEvent = await this.repository.save(input);
+    return plainToClass(CreateEventOutput, createdEvent, {
+      excludeExtraneousValues: true,
+    });
   }
 
   async readAll(filterOptions: EventsFilters): Promise<PageDto<EventOutput>> {

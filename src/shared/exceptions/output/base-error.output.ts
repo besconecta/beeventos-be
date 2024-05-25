@@ -1,32 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 
-export class ExceptionsOutput {
+@Expose()
+export class BaseErrorOutput {
   @ApiProperty({
     name: 'statusCode',
-    description: 'Código HTTP de resposta',
+    description: 'Status HTTP da requisição',
+    type: 'number',
   })
-  @Expose()
   statusCode: number;
 
   @ApiProperty({
     name: 'timestamp',
-    description: 'Momento em que ocorreu o erro',
+    type: 'date',
+    description: 'Data e hora em que ocorreu o erro',
+    example: '14:00:00 PM',
   })
-  @Expose()
   timestamp: Date;
 
   @ApiProperty({
     name: 'message',
+    type: 'string',
     description: 'Mensagem de erro detalhada',
   })
-  @Expose()
   message: string;
-
-  @ApiProperty({
-    name: 'route',
-    description: 'Rota onde ocorreu o erro',
-  })
-  @Expose()
-  route: string;
 }

@@ -8,6 +8,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { InternalServerErrorOutput } from '../../../shared/exceptions/output';
 import { EventOutput } from '../output';
 
 export function ApiReadAvaliableEventsResponses() {
@@ -51,11 +52,10 @@ export function ApiReadAvaliableEventsResponses() {
       type: [EventOutput],
     }),
     ApiNoContentResponse({}),
+
     ApiInternalServerErrorResponse({
       description: 'Erro interno do servidor',
-      content: {
-        type: { example: 'Houve um erro interno ao processar solicitação' },
-      },
+      type: InternalServerErrorOutput,
     }),
   );
 }

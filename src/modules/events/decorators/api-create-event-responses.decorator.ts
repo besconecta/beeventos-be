@@ -8,10 +8,14 @@ import {
   ApiOperation,
   ApiTags,
   ApiUnauthorizedResponse,
-  getSchemaPath,
 } from '@nestjs/swagger';
 
-import { EventOutput } from '../output';
+import {
+  ConflictErrorOutput,
+  InternalServerErrorOutput,
+  UnauthorizedErrorOutput,
+} from '../../../shared/exceptions/output';
+import { CreateEventOutput } from '../output';
 
 export function ApiCreateEventResponses() {
   return applyDecorators(
@@ -19,14 +23,7 @@ export function ApiCreateEventResponses() {
     ApiOperation({ description: 'Cadastro evento' }),
     ApiCreatedResponse({
       description: 'Evento criado com sucesso',
-      schema: {
-        type: 'object',
-        properties: {
-          data: {
-            oneOf: [{ $ref: getSchemaPath(EventOutput) }],
-          },
-        },
-      },
+      type: CreateEventOutput,
     }),
 
     ApiBadRequestResponse({
@@ -58,22 +55,6 @@ export function ApiCreateEventResponses() {
       },
     }),
 
-    ApiConflictResponse({
-      description: 'Registro duplicado',
-      schema: {
-        type: 'object',
-        properties: {
-          statusCode: { type: 'number', example: 409 },
-          timestamp: { type: 'date', example: '14:00:00 PM' },
-          message: {
-            type: 'string',
-            example:
-              'Registro duplicado: Key (field)=(description_field) already exists',
-          },
-        },
-      },
-    }),
-
     ApiNotFoundResponse({
       description: 'Registros não encontrados',
       schema: {
@@ -92,34 +73,19 @@ export function ApiCreateEventResponses() {
       },
     }),
 
+    ApiConflictResponse({
+      description: 'Registro duplicado',
+      type: ConflictErrorOutput,
+    }),
+
     ApiUnauthorizedResponse({
       description: 'Acesso negado',
-      schema: {
-        type: 'object',
-        properties: {
-          statusCode: { type: 'number', example: 401 },
-          timestamp: { type: 'date', example: '14:00:00 PM' },
-          message: {
-            type: 'string',
-            example: 'Usuário sem permissão',
-          },
-        },
-      },
+      type: UnauthorizedErrorOutput,
     }),
 
     ApiInternalServerErrorResponse({
       description: 'Erro interno do servidor',
-      schema: {
-        type: 'object',
-        properties: {
-          statusCode: { type: 'number', example: 500 },
-          timestamp: { type: 'date', example: '14:00:00 PM' },
-          message: {
-            type: 'string',
-            example: 'Houve um erro interno ao processar solicitação',
-          },
-        },
-      },
+      type: InternalServerErrorOutput,
     }),
   );
 }

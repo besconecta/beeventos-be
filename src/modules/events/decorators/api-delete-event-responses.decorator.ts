@@ -10,6 +10,11 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
+import {
+  InternalServerErrorOutput,
+  UnauthorizedErrorOutput,
+} from '../../../shared/exceptions/output';
+
 export function ApiDeleteEventResponses() {
   return applyDecorators(
     ApiTags('Gestão de eventos'),
@@ -39,12 +44,14 @@ export function ApiDeleteEventResponses() {
         },
       },
     }),
-    ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
+    ApiUnauthorizedResponse({
+      description: 'Acesso negado',
+      type: UnauthorizedErrorOutput,
+    }),
+
     ApiInternalServerErrorResponse({
       description: 'Erro interno do servidor',
-      content: {
-        type: { example: 'Houve um erro interno ao processar solicitação' },
-      },
+      type: InternalServerErrorOutput,
     }),
   );
 }

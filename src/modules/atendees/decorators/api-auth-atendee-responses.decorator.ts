@@ -8,7 +8,10 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { ExceptionsOutput } from '../../../shared/output';
+import {
+  InternalServerErrorOutput,
+  UnauthorizedErrorOutput,
+} from '../../../shared/exceptions/output';
 import { AuthAtendeeOutput } from '../output';
 
 export function ApiAuthAtendeeResponses() {
@@ -21,15 +24,27 @@ export function ApiAuthAtendeeResponses() {
     }),
     ApiNotFoundResponse({
       description: 'E-mail não encontrado',
-      type: ExceptionsOutput,
+      schema: {
+        type: 'object',
+        properties: {
+          statusCode: { type: 'number', example: 404 },
+          timestamp: { type: 'date', example: '14:00:00 PM' },
+          message: {
+            type: 'string',
+            example: 'E-mail anakin@tatooine.com não encontrado',
+          },
+        },
+      },
     }),
+
     ApiUnauthorizedResponse({
-      description: 'Senha incorreta',
-      type: ExceptionsOutput,
+      description: 'Acesso negado',
+      type: UnauthorizedErrorOutput,
     }),
+
     ApiInternalServerErrorResponse({
       description: 'Erro interno do servidor',
-      type: ExceptionsOutput,
+      type: InternalServerErrorOutput,
     }),
   );
 }

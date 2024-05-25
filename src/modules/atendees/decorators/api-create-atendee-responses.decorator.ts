@@ -6,9 +6,13 @@ import {
   ApiInternalServerErrorResponse,
   ApiOperation,
   ApiTags,
+  getSchemaPath,
 } from '@nestjs/swagger';
 
-import { ExceptionsOutput } from '../../../shared/output';
+import {
+  ConflictErrorOutput,
+  InternalServerErrorOutput,
+} from '../../../shared/exceptions/output';
 import { AtendeeAccountOutput } from '../output';
 
 export function ApiCreateAtendeeResponses() {
@@ -19,19 +23,37 @@ export function ApiCreateAtendeeResponses() {
     }),
     ApiCreatedResponse({
       description: 'Conta de participante criada com sucesso',
-      type: AtendeeAccountOutput,
+      schema: {
+        type: 'object',
+        properties: {
+          data: {
+            oneOf: [{ $ref: getSchemaPath(AtendeeAccountOutput) }],
+          },
+        },
+      },
     }),
     ApiBadRequestResponse({
-      description: 'As senhas não coincidem',
-      type: ExceptionsOutput,
+      description: 'Erro de validação de senha',
+      schema: {
+        type: 'object',
+        properties: {
+          statusCode: { type: 'number', example: 409 },
+          timestamp: { type: 'date', example: '14:00:00 PM' },
+          message: {
+            type: 'string',
+            example: 'As senhas não coincidem',
+          },
+        },
+      },
     }),
     ApiConflictResponse({
       description: 'Registro duplicado',
-      type: ExceptionsOutput,
+      type: ConflictErrorOutput,
     }),
+
     ApiInternalServerErrorResponse({
       description: 'Erro interno do servidor',
-      type: ExceptionsOutput,
+      type: InternalServerErrorOutput,
     }),
   );
 }
