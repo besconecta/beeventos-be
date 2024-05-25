@@ -1,5 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiConflictResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
@@ -9,6 +10,8 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+
+import { EventOutput } from '../output';
 
 export function ApiUpdateEventResponses() {
   return applyDecorators(
@@ -21,6 +24,15 @@ export function ApiUpdateEventResponses() {
     }),
     ApiOkResponse({
       description: 'Evento atualizado com sucesso',
+      type: EventOutput,
+    }),
+    ApiBadRequestResponse({
+      description: 'Parâmetro inválido',
+      content: {
+        type: {
+          example: 'ID de evento com formato inválido',
+        },
+      },
     }),
     ApiConflictResponse({
       description:
@@ -29,7 +41,10 @@ export function ApiUpdateEventResponses() {
     ApiNotFoundResponse({ description: 'Evento não encontrado' }),
     ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }

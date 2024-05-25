@@ -27,6 +27,23 @@ export class EventOutput {
   title: string;
 
   @ApiProperty({
+    name: 'about',
+    description: 'Descrição do evento',
+    example:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac enim dolor. Nulla eu leo ut leo ultrices dictum. ',
+  })
+  @Expose()
+  about: string;
+
+  @ApiProperty({
+    name: 'bannerUrl',
+    description: 'URL do banner do evento',
+    example: 'https://get.image-example.com',
+  })
+  @Expose()
+  bannerUrl: string;
+
+  @ApiProperty({
     name: 'user',
     description: 'Organizador do evento',
     example: 'Anakin Skywalker',

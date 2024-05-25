@@ -9,10 +9,10 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 
-import { UserGuard } from '../../../shared/auth/guard';
+import { AtendeeGuard } from '../../../shared/auth/guard';
+import { EventOutput } from '../../events/output';
 import { ApiEventRegistrationResponses } from '../decorators';
 import { EventRegistrationInput } from '../input';
-import { EventOutput } from '../output';
 import { EventRegistrationService } from '../services';
 
 @Controller('events')
@@ -21,8 +21,8 @@ export class EventRegistrationController {
     private readonly eventRegistrationService: EventRegistrationService,
   ) {}
 
-  @Post(':id/registration')
-  @UseGuards(UserGuard)
+  @Post(':id/registrations')
+  @UseGuards(AtendeeGuard)
   @ApiEventRegistrationResponses()
   async handle(
     @Param('id') id: string,

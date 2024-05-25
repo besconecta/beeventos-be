@@ -26,7 +26,10 @@ export function ApiDeleteEventTypeResponses() {
     }),
     ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      content: {
+        type: { example: 'Houve um erro interno ao processar solicitação' },
+      },
     }),
   );
 }

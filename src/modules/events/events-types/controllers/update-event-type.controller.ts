@@ -24,10 +24,10 @@ export class UpdateEventTypeController {
   ) {}
 
   @Patch(':id')
-  @ApiUpdateEventTypeResponses()
   @UseGuards(UserGuard)
+  @ApiUpdateEventTypeResponses()
   async handle(
-    @Param('id', new UUIDFormatValidation()) id: string,
+    @Param('id', new UUIDFormatValidation('evento')) id: string,
     @Body() input: UpdateEventTypeInput,
     @Res() res: Response,
   ): Promise<Response<EventTypeOutput>> {

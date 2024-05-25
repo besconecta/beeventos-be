@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { ReadUserByIdService } from '../../../modules/users/services';
-import { Events } from '../entities';
 import { ReadEventTypeByIdService } from '../events-types/services';
 import { CreateEventInput } from '../input';
+import { CreateEventOutput } from '../output';
 import { EventRepository } from '../repositories';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class CreateEventService {
     private readonly readEventTypeByIdService: ReadEventTypeByIdService,
   ) {}
 
-  async execute(input: CreateEventInput): Promise<Events> {
+  async execute(input: CreateEventInput): Promise<CreateEventOutput> {
     const user = await this.readUserByIdService.execute(input.userId);
 
     if (!user) {

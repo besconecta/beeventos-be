@@ -18,7 +18,6 @@ export class AuthAtendeeController {
   ) {
     const data = await this.authAtendeeService.execute(input);
     return res.status(HttpStatus.OK).json({
-      message: 'Login efetuado com sucesso',
       access_token: data,
     });
   }

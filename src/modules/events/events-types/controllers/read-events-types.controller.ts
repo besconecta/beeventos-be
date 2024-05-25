@@ -13,8 +13,8 @@ export class ReadEventsTypesController {
   ) {}
 
   @Get()
-  @ApiReadEventsTypesResponses()
   @UseGuards(UserGuard)
+  @ApiReadEventsTypesResponses()
   async handle(@Res() res: Response): Promise<Response<EventTypeOutput[]>> {
     const data = await this.readEventsTypesService.execute();
 

@@ -6,6 +6,8 @@ export const eventsMapper = (data: Events): EventOutput => {
     id: data.id,
     eventType: data.eventType ? data.eventType.description : null,
     title: data.title,
+    about: data.about,
+    bannerUrl: data.bannerUrl,
     user: `${data.user.firstname} ${data.user.lastname}`,
     local: data.local,
     startAt: data.startAt.toLocaleString('pt-BR'),

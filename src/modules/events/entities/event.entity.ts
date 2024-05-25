@@ -33,10 +33,6 @@ export class Events {
   @ManyToOne(() => Users, (user) => user.events, { nullable: false })
   user: Users;
 
-  // @ManyToMany(() => Atendees)
-  // @JoinTable()
-  // atendees: Atendees[];
-
   @Column({ length: 100, nullable: false, unique: true })
   title: string;
 

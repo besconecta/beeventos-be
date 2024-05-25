@@ -1,13 +1,19 @@
 import { applyDecorators } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
-  ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+
+import {
+  InternalServerErrorOutput,
+  UnauthorizedErrorOutput,
+} from '../../../shared/exceptions/output';
 
 export function ApiDeleteEventResponses() {
   return applyDecorators(
@@ -18,13 +24,34 @@ export function ApiDeleteEventResponses() {
       description: 'ID do evento',
       example: '5aaca898-fe80-46f7-8530-bbcb837a2f49',
     }),
-    ApiOkResponse({
+    ApiNoContentResponse({
       description: 'Evento excluído com sucesso',
     }),
-    ApiNotFoundResponse({ description: 'Evento não encontrado' }),
-    ApiUnauthorizedResponse({ description: 'Usuário sem permissão' }),
+    ApiBadRequestResponse({
+      description: 'Parâmetro inválido',
+      content: {
+        type: {
+          example: 'ID de evento com formato inválido',
+        },
+      },
+    }),
+    ApiNotFoundResponse({
+      description: 'Evento não encontrado',
+      content: {
+        type: {
+          example:
+            'Evento com id 5aaca898-fe80-46f7-8530-bbcb837a2f49 não encontrado',
+        },
+      },
+    }),
+    ApiUnauthorizedResponse({
+      description: 'Acesso negado',
+      type: UnauthorizedErrorOutput,
+    }),
+
     ApiInternalServerErrorResponse({
-      description: 'Houve um erro interno ao processar solicitação',
+      description: 'Erro interno do servidor',
+      type: InternalServerErrorOutput,
     }),
   );
 }
