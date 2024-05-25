@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator';
 
+import { AccountRole } from '../../../shared/enums';
+
 export class CreateAtendeeInput {
   @ApiProperty({
     name: 'fistname',
@@ -45,4 +47,6 @@ export class CreateAtendeeInput {
   )
   @IsNotEmpty({ message: 'Confirmação de senha é obrigatória' })
   passwordConfirmation: string;
+
+  role?: AccountRole;
 }
