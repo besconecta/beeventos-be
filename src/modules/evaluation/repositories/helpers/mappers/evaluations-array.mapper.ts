@@ -12,6 +12,7 @@ export const evaluationsArrayMapper = (
         : 'Anonimo',
       event: evaluation.event.title,
       rating: evaluation.rating,
+      comment: evaluation?.comment,
       createdAt: evaluation.createdAt,
       updatedAt: evaluation.updatedAt,
     };

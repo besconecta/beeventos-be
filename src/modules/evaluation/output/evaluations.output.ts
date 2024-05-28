@@ -35,6 +35,15 @@ export class EvaluationsOutput {
   rating: number;
 
   @ApiProperty({
+    name: 'comment',
+    description: 'Comentário',
+    example:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis libero sit amet interdum laoreet. In ac tempus nunc, ut posuere nulla. ',
+  })
+  @Expose()
+  comment: string;
+
+  @ApiProperty({
     name: 'createdAt',
     description: 'Data/hora de criação',
     example: '2024-05-12 20:30:00',
