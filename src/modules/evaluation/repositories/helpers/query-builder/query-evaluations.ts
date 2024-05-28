@@ -26,8 +26,5 @@ export const queryEvaluations = (
     }
   }
 
-  console.log('Generated Query:', queryBuilder.getSql());
-  console.log('Query Parameters:', queryBuilder.getParameters());
-
   return queryBuilder;
 };

@@ -8,10 +8,15 @@ import { UserModule } from '../users/user.module';
 import {
   CreateEvaluationController,
   ReadEvaluationsController,
+  ReadEventsEvaluationsController,
 } from './controller';
 import { EventsEvaluations } from './entities';
 import { EvaluationRepository } from './repositories';
-import { CreateEvaluationService, ReadEvaluationsService } from './services';
+import {
+  CreateEvaluationService,
+  ReadEvaluationsService,
+  ReadEventsEvaluationsService,
+} from './services';
 
 @Module({
   imports: [
@@ -25,7 +30,12 @@ import { CreateEvaluationService, ReadEvaluationsService } from './services';
     EvaluationRepository,
     CreateEvaluationService,
     ReadEvaluationsService,
+    ReadEventsEvaluationsService,
   ],
-  controllers: [CreateEvaluationController, ReadEvaluationsController],
+  controllers: [
+    CreateEvaluationController,
+    ReadEvaluationsController,
+    ReadEventsEvaluationsController,
+  ],
 })
 export class EvaluationModule {}
