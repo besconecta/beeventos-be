@@ -26,4 +26,12 @@ export class EvaluationFilters {
     toClassOnly: true,
   })
   endAt?: string;
+
+  @ApiProperty({
+    name: 'anonymous',
+    description: 'Avaliações anônimas',
+    example: true,
+  })
+  @IsOptional()
+  anonymous?: boolean;
 }

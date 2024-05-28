@@ -74,6 +74,7 @@ export class EvaluationRepository {
   }
 
   async readByEventId(
+    filterOptions: EvaluationFilters,
     eventId: string,
   ): Promise<PageDto<EventEvaluationsOutput>> {
     const pageOptionsDto = new PageOptionsDto();
@@ -82,7 +83,7 @@ export class EvaluationRepository {
       .createQueryBuilder('events_evaluations')
       .where({ event: eventId });
 
-    const query = queryEventEvaluations(queryBuilder);
+    const query = queryEventEvaluations(filterOptions, queryBuilder);
 
     query
       .orderBy('events_evaluations.createdAt', pageOptionsDto.order)
