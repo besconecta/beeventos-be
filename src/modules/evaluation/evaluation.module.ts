@@ -5,10 +5,13 @@ import { AuthModule } from '../../shared/auth/auth.module';
 import { AtendeeModule } from '../atendees/atendee.module';
 import { EventModule } from '../events/event.module';
 import { UserModule } from '../users/user.module';
-import { CreateEvaluationController } from './controller';
+import {
+  CreateEvaluationController,
+  ReadEvaluationsController,
+} from './controller';
 import { EventsEvaluations } from './entities';
 import { EvaluationRepository } from './repositories';
-import { CreateEvaluationService } from './services';
+import { CreateEvaluationService, ReadEvaluationsService } from './services';
 
 @Module({
   imports: [
@@ -18,7 +21,11 @@ import { CreateEvaluationService } from './services';
     AtendeeModule,
     EventModule,
   ],
-  providers: [EvaluationRepository, CreateEvaluationService],
-  controllers: [CreateEvaluationController],
+  providers: [
+    EvaluationRepository,
+    CreateEvaluationService,
+    ReadEvaluationsService,
+  ],
+  controllers: [CreateEvaluationController, ReadEvaluationsController],
 })
 export class EvaluationModule {}
