@@ -7,13 +7,13 @@ import { EventModule } from '../events/event.module';
 import { UserModule } from '../users/user.module';
 import {
   EventRegistrationController,
-  ReadParticipateEventsController,
+  ReadAtendeeRegistrationsController,
 } from './controllers';
 import { EventsRegistrations } from './entities';
 import { EventsAtendeesRepository } from './repositories';
 import {
   EventRegistrationService,
-  ReadParticipateEventsService,
+  ReadAtendeeRegistrationsService,
 } from './services';
 
 @Module({
@@ -27,8 +27,11 @@ import {
   providers: [
     EventsAtendeesRepository,
     EventRegistrationService,
-    ReadParticipateEventsService,
+    ReadAtendeeRegistrationsService,
   ],
-  controllers: [EventRegistrationController, ReadParticipateEventsController],
+  controllers: [
+    EventRegistrationController,
+    ReadAtendeeRegistrationsController,
+  ],
 })
 export class RegistrationModule {}

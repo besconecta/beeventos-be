@@ -4,6 +4,7 @@ import { PageDto, PageMetaDto, PageOptionsDto } from 'src/shared/pagination';
 import { Repository } from 'typeorm';
 
 import { EventsRegistrations } from '../entities';
+import { atendeeRegistrationsArrayMapper } from './helpers/mappers/atendee-registrations-array.mapper';
 
 @Injectable()
 export class EventsAtendeesRepository {
@@ -38,6 +39,7 @@ export class EventsAtendeesRepository {
     const queryBuilder = this.repository
       .createQueryBuilder('events_registrations')
       .leftJoinAndSelect('events_registrations.event', 'event')
+      .leftJoinAndSelect('event.user', 'user')
       .where({
         atendee: { id: atendeeId },
       })
@@ -53,13 +55,6 @@ export class EventsAtendeesRepository {
       pageOptionsDto,
     });
 
-    return new PageDto(entities, pageMetaDto);
-
-    // return await this.repository.find({
-    //   where: {
-    //     atendee: { id: atendeeId },
-    //   },
-    //   relations: ['event'],
-    // });
+    return new PageDto(atendeeRegistrationsArrayMapper(entities), pageMetaDto);
   }
 }

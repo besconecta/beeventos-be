@@ -1,2 +1,2 @@
 export * from './event-registration.service';
-export * from './read-participate-events.service';
+export * from './read-atendee-registrations.service';
