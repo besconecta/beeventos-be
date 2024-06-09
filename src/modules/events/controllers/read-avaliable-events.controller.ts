@@ -1,14 +1,6 @@
-import {
-  Controller,
-  Get,
-  HttpStatus,
-  Query,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 
-import { AuthGuard } from '../../../shared/auth/guard';
 import { PageDto } from '../../../shared/pagination';
 import { ApiReadAvaliableEventsResponses } from '../decorators';
 import { EventsFilters } from '../input';
@@ -22,7 +14,6 @@ export class ReadAvaliableEventsController {
   ) {}
 
   @Get('avaliable')
-  @UseGuards(AuthGuard)
   @ApiReadAvaliableEventsResponses()
   async handle(
     @Query() filterOptions: EventsFilters,

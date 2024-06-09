@@ -5,10 +5,16 @@ import { AuthModule } from '../../shared/auth/auth.module';
 import { AtendeeModule } from '../atendees/atendee.module';
 import { EventModule } from '../events/event.module';
 import { UserModule } from '../users/user.module';
-import { EventRegistrationController } from './controllers';
+import {
+  EventRegistrationController,
+  ReadParticipateEventsController,
+} from './controllers';
 import { EventsRegistrations } from './entities';
 import { EventsAtendeesRepository } from './repositories';
-import { EventRegistrationService } from './services';
+import {
+  EventRegistrationService,
+  ReadParticipateEventsService,
+} from './services';
 
 @Module({
   imports: [
@@ -18,7 +24,11 @@ import { EventRegistrationService } from './services';
     AtendeeModule,
     EventModule,
   ],
-  providers: [EventsAtendeesRepository, EventRegistrationService],
-  controllers: [EventRegistrationController],
+  providers: [
+    EventsAtendeesRepository,
+    EventRegistrationService,
+    ReadParticipateEventsService,
+  ],
+  controllers: [EventRegistrationController, ReadParticipateEventsController],
 })
 export class RegistrationModule {}
