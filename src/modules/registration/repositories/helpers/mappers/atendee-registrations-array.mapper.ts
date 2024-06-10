@@ -7,8 +7,8 @@ export const atendeeRegistrationsArrayMapper = (
   return data.map((registration: EventsRegistrations) => {
     const output: AtendeeRegistrationsOutput = {
       id: registration.id,
-      createdAt: registration.createdAt,
-      updatedAt: registration.updatedAt,
+      createdAt: registration.createdAt.toLocaleString('pt-BR'),
+      updatedAt: registration.updatedAt.toLocaleString('pt-BR'),
       event: {
         id: registration.event.id,
         eventType: registration.event.eventType?.description,
