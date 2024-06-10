@@ -18,7 +18,9 @@ export function ApiAuthUserResponses() {
       description: 'Login efetuado com sucesso',
       type: AuthUserOutput,
     }),
-    ApiNotFoundResponse({ description: 'E-mail não encontrado' }),
+    ApiNotFoundResponse({
+      description: 'E-mail anakin@tatooine.com não encontrado',
+    }),
     ApiUnauthorizedResponse({ description: 'Senha incorreta' }),
     ApiInternalServerErrorResponse({
       description: 'Erro interno do servidor',

@@ -2,8 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import {
+  PageDto,
+  PageMetaDto,
+  PageOptionsDto,
+} from '../../../shared/pagination';
 import { EventsEvaluations } from '../entities';
-import { CreateEvaluationInput } from '../input';
+import { CreateEvaluationInput, EvaluationFilters } from '../input';
+import { EvaluationsOutput, EventEvaluationsOutput } from '../output';
+import {
+  evaluationsArrayMapper,
+  eventEvaluationsArrayMapper,
+} from './helpers/mappers';
+import {
+  queryEvaluations,
+  queryEventEvaluations,
+} from './helpers/query-builder';
 
 @Injectable()
 export class EvaluationRepository {
@@ -31,5 +45,61 @@ export class EvaluationRepository {
     return await this.repository.findOne({
       where: { event: { id: eventId }, atendee: { id: atendeeId } },
     });
+  }
+
+  async readAll(
+    filterOptions: EvaluationFilters,
+  ): Promise<PageDto<EvaluationsOutput>> {
+    const pageOptionsDto = new PageOptionsDto();
+
+    const queryBuilder =
+      this.repository.createQueryBuilder('events_evaluations');
+
+    const query = queryEvaluations(filterOptions, queryBuilder);
+
+    query
+      .orderBy('events_evaluations.createdAt', pageOptionsDto.order)
+      .skip(pageOptionsDto.skip)
+      .take(pageOptionsDto.take);
+
+    const itemCount = await query.getCount();
+    const { entities } = await query.getRawAndEntities();
+
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto,
+    });
+
+    return new PageDto(evaluationsArrayMapper(entities), pageMetaDto);
+  }
+
+  async readByEventId(
+    filterOptions: EvaluationFilters,
+    eventId: string,
+  ): Promise<PageDto<EventEvaluationsOutput>> {
+    const pageOptionsDto = new PageOptionsDto();
+
+    const queryBuilder = this.repository
+      .createQueryBuilder('events_evaluations')
+      .where({ event: eventId });
+
+    const query = queryEventEvaluations(filterOptions, queryBuilder);
+
+    query
+      .orderBy('events_evaluations.createdAt', pageOptionsDto.order)
+      .skip(pageOptionsDto.skip)
+      .take(pageOptionsDto.take);
+
+    const itemCount = await query.getCount();
+    const { entities } = await query.getRawAndEntities();
+
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto,
+    });
+
+    const mappedEvaluations = await eventEvaluationsArrayMapper(entities);
+
+    return new PageDto([mappedEvaluations], pageMetaDto);
   }
 }

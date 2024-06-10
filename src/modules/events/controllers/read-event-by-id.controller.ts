@@ -5,11 +5,9 @@ import {
   NotFoundException,
   Param,
   Res,
-  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 
-import { AuthGuard } from '../../../shared/auth/guard';
 import { UUIDFormatValidation } from '../../../shared/validations';
 import { ApiReadEventByIdResponses } from '../decorators';
 import { EventOutput } from '../output';
@@ -20,7 +18,6 @@ export class ReadEventByIdController {
   constructor(private readonly readEventByIdService: ReadEventByIdService) {}
 
   @Get(':id')
-  @UseGuards(AuthGuard)
   @ApiReadEventByIdResponses()
   async handle(
     @Param('id', new UUIDFormatValidation('evento')) id: string,

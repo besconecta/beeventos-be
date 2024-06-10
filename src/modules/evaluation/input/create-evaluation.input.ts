@@ -33,6 +33,6 @@ export class CreateEvaluationInput {
     description: 'Avaliação anônima?',
     example: 'true | false',
   })
-  @IsNotEmpty({ message: 'Informe se a sua avaliação deve ser anônima ' })
+  @IsOptional()
   anonymous: boolean;
 }

@@ -34,9 +34,6 @@ export class AtendeeGuard implements CanActivate {
       request.decodedData.sub.id,
     );
 
-    console.log('Sub', request.decodedData.sub.id);
-    console.log('AtendeeGuard', activeUser);
-
     if (!activeUser) {
       throw new UnauthorizedException('Usuário sem permissão');
     }
