@@ -23,7 +23,7 @@ export function ApiAuthAtendeeResponses() {
       type: AuthAtendeeOutput,
     }),
     ApiNotFoundResponse({
-      description: 'E-mail não encontrado',
+      description: 'E-mail anakin@tatooine.com não encontrado',
       schema: {
         type: 'object',
         properties: {

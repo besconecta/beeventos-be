@@ -21,7 +21,7 @@ export class AuthUserService {
     const user = await this.userRepository.findByEmail(input.email);
 
     if (!user) {
-      throw new NotFoundException(`E-mail não encontrado`);
+      throw new NotFoundException(`E-mail ${input.email} não encontrado`);
     }
 
     const passwordMatch = await this.bcryptService.comparePassword(
