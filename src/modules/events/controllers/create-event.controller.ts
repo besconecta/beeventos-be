@@ -1,4 +1,12 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { Response } from 'express';
 
 import { UserGuard } from '../../../shared/auth/guard';
 import { ApiCreateEventResponses } from '../decorators';
@@ -13,7 +21,14 @@ export class CreateEventController {
   @Post()
   @UseGuards(UserGuard)
   @ApiCreateEventResponses()
-  async handle(@Body() input: CreateEventInput): Promise<CreateEventOutput> {
-    return await this.createEventService.execute(input);
+  async handle(
+    @Body() input: CreateEventInput,
+    @Res() res: Response,
+  ): Promise<Response<CreateEventOutput>> {
+    const result = await this.createEventService.execute(input);
+    return res.status(HttpStatus.CREATED).json({
+      message: 'Evento criado com sucesso',
+      data: result,
+    });
   }
 }
