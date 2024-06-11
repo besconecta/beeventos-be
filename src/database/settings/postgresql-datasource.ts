@@ -4,11 +4,11 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const postgreSqlDataSource: DataSourceOptions = {
   type: 'postgres',
-  host: process.env.DATABASE_HOST,
-  port: Number(process.env.DATABASE_PORT),
-  username: process.env.DATABASE_USERNAME,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
+  host: process.env.PGHOST,
+  port: Number(process.env.PGPORT),
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
   entities: [__dirname + '/../../**/*.entity.{js,ts}'],
   synchronize: false,
   logging: true,
