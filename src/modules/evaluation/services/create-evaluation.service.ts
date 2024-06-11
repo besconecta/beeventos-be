@@ -36,31 +36,36 @@ export class CreateEvaluationService {
       );
     }
 
-    const atendee = await this.readAtendeeByIdService.execute(input.atendeeId);
-    const event = await this.readEventByIdService.execute(eventId);
-
-    if (!event) {
-      throw new NotFoundException('Evento não encontrado');
-    }
-
-    if (event.status !== EventStatus.FINISHED) {
-      throw new BadRequestException('Este evento ainda não foi finalizado');
-    }
-
-    if (!atendee) {
-      throw new NotFoundException('Participante não encontrado');
-    }
-
-    const existingEvaluation =
-      await this.evaluationRepository.readAtendeeEvaluation(
-        eventId,
+    if (!input.anonymous && input.atendeeId) {
+      const atendee = await this.readAtendeeByIdService.execute(
         input.atendeeId,
       );
 
-    if (existingEvaluation && existingEvaluation.atendee.id !== null) {
-      throw new ConflictException('Participante já avaliou este evento');
-    }
+      const event = await this.readEventByIdService.execute(eventId);
 
-    return await this.evaluationRepository.evaluate(event.id, input);
+      if (!event) {
+        throw new NotFoundException('Evento não encontrado');
+      }
+
+      if (event.status !== EventStatus.FINISHED) {
+        throw new BadRequestException('Este evento ainda não foi finalizado');
+      }
+
+      if (!atendee) {
+        throw new NotFoundException('Participante não encontrado');
+      }
+
+      const existingEvaluation =
+        await this.evaluationRepository.readAtendeeEvaluation(
+          event.id,
+          atendee.id,
+        );
+
+      if (existingEvaluation) {
+        throw new ConflictException('Participante já avaliou este evento');
+      }
+      return await this.evaluationRepository.evaluate(event.id, input);
+    }
+    return await this.evaluationRepository.evaluate(eventId, input);
   }
 }
