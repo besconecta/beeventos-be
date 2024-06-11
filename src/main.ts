@@ -7,6 +7,7 @@ import { setupSwagger } from './shared/swagger/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const port = process.env.PORT || 3000;
 
   const loggerInstance = app.get(Logger);
   const httpAdapter = app.get(HttpAdapterHost);
@@ -28,6 +29,8 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  await app.listen(3000);
+  await app.listen(port);
+  const url = await app.getUrl();
+  console.log(`Application is running on: ${url}`);
 }
 bootstrap();
