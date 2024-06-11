@@ -34,5 +34,5 @@ Início: 2024-05-07
 
 ### Swagger
 
-- [Endpoints](https://beeventos-be-production.up.railway.app/api/v1)
+- [Endpoints](https://beeventos-be-production.up.railway.app/api/v1/docs)
 - [Status](https://beeventos-be-production.up.railway.app/api/v1/health)
