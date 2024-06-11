@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   HttpStatus,
+  NotFoundException,
   Param,
   Query,
   Res,
@@ -36,7 +37,9 @@ export class ReadEventsEvaluationsController {
     );
 
     if (result.meta.itemCount === 0) {
-      return res.status(HttpStatus.NO_CONTENT).json({});
+      throw new NotFoundException(
+        'Não há avaliações registradas para este evento.',
+      );
     }
 
     return res.status(HttpStatus.OK).json({
