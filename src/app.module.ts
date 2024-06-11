@@ -8,6 +8,7 @@ import { EventTypeModule } from './modules/events/events-types/event-type.module
 import { RegistrationModule } from './modules/registration/registration.module';
 import { UserModule } from './modules/users/user.module';
 import { AuthModule } from './shared/auth/auth.module';
+import { HealthModule } from './shared/health/health.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from './shared/auth/auth.module';
     EventTypeModule,
     EvaluationModule,
     RegistrationModule,
+    HealthModule,
   ],
   providers: [Logger],
 })
