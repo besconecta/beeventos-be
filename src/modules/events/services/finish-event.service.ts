@@ -1,10 +1,12 @@
 import {
+  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { UpdateResult } from 'typeorm';
 
+import { EventStatus } from '../enums';
 import { EventRepository } from '../repositories';
 
 @Injectable()
@@ -13,6 +15,10 @@ export class FinishEventService {
 
   async execute(id: string): Promise<UpdateResult> {
     const event = await this.eventRepository.readById(id);
+
+    if (event.status === EventStatus.FINISHED) {
+      throw new BadRequestException('Este evento já foi finalizado ');
+    }
 
     if (!event) {
       throw new NotFoundException(`Evento com id ${id} não encontrado`);

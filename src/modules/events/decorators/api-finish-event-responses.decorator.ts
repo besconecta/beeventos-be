@@ -26,10 +26,24 @@ export function ApiFinishEventResponses() {
       type: EventOutput,
     }),
     ApiBadRequestResponse({
-      description: 'Parâmetro inválido',
-      content: {
-        type: {
-          example: 'ID de evento com formato inválido',
+      description: 'Erros de validação',
+      schema: {
+        type: 'object',
+        properties: {
+          statusCode: { type: 'number', example: 400 },
+          timestamp: { type: 'date', example: '14:00:00 PM' },
+          message: {
+            type: 'string',
+            example: [
+              'ID de evento com formato inválido',
+              'Este evento já foi finalizado',
+            ],
+          },
+          route: {
+            type: 'string',
+            example:
+              'http://domain.com/api/v1/events/a386818e-90af-4b07-bd5d-52e21d2fb158',
+          },
         },
       },
     }),

@@ -52,7 +52,7 @@ export class EventRepository {
     return new PageDto(eventsArrayMapper(entities), pageMetaDto);
   }
 
-  async readById(id: string): Promise<any> {
+  async readById(id: string): Promise<EventOutput> {
     const queryBuilder = this.repository
       .createQueryBuilder('events')
       .leftJoinAndSelect('events.eventType', 'eventType')
