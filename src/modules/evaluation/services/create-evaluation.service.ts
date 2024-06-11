@@ -57,7 +57,7 @@ export class CreateEvaluationService {
         input.atendeeId,
       );
 
-    if (existingEvaluation) {
+    if (existingEvaluation && existingEvaluation.atendee.id !== null) {
       throw new ConflictException('Participante já avaliou este evento');
     }
 
