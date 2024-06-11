@@ -93,6 +93,12 @@ export class EventRepository {
     return await this.repository.update(id, input);
   }
 
+  async finish(id: string): Promise<UpdateResult> {
+    return await this.repository.update(id, {
+      status: EventStatus.FINISHED,
+    });
+  }
+
   async delete(id: string): Promise<DeleteResult> {
     return await this.repository.softDelete(id);
   }

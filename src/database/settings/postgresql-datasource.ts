@@ -11,7 +11,7 @@ export const postgreSqlDataSource: DataSourceOptions = {
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
   entities: [__dirname + '/../../**/*.entity.{js,ts}'],
-  synchronize: false,
+  synchronize: true,
   logging: true,
   extra: {
     timezone: 'UTC',

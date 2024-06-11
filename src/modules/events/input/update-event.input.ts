@@ -64,5 +64,5 @@ export class UpdateEventInput {
   endAt: Date;
 
   @IsOptional()
-  status: EventStatus.IDLE;
+  status: EventStatus;
 }
